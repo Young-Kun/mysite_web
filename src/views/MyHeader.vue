@@ -7,26 +7,7 @@
         <!--菜单-->
         <keep-alive>
             <Menu mode="horizontal" theme="light">
-                <div v-for="(menu, idx) in topMenuList" :key="idx">
-                    <div v-if="menu.menu_items">
-                        <Submenu :name=menu.name>
-                            <template slot="title">
-                                <Icon :type=menu.icon></Icon>
-                                <span>{{ menu.span }}</span>
-                            </template>
-                            <MenuItem v-for="(item, idx) in menu.menu_items" :key="idx" :name=item.name>
-                                <Icon :type=item.icon></Icon>
-                                <span>{{ item.span }}</span>
-                            </MenuItem>
-                        </Submenu>
-                    </div>
-                    <div v-else>
-                        <MenuItem :name=menu.name>
-                            <Icon :type=menu.icon></Icon>
-                            <span>{{ menu.span }}</span>
-                        </MenuItem>
-                    </div>
-                </div>
+                <data-based-menu-items :menu-list-data=topMenuList></data-based-menu-items>
             </Menu>
         </keep-alive>
         <!--搜索框-->
@@ -48,8 +29,13 @@
 </template>
 
 <script>
+    import DataBasedMenuItems from "@/components/DataBasedMenuItems";
+
     export default {
         name: "MyHeader",
+        components: {
+            DataBasedMenuItems
+        },
         data() {
             return {
                 topMenuList: [
@@ -90,14 +76,10 @@
         background: #fff;
     }
 
-    .ivu-menu-horizontal {
+    .menu-items-wrapper {
+        display: flex;
         height: 64px;
         line-height: 64px;
-        display: flex;
-    }
-
-    .ivu-menu-horizontal .ivu-menu-item,  .ivu-menu-horizontal .ivu-menu-submenu{
-        white-space: nowrap;
     }
 
     .ivu-menu-horizontal.ivu-menu-light:after {
@@ -138,4 +120,6 @@
     #user:hover {
         background: #f8f8f9;
     }
+
+
 </style>
