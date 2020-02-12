@@ -1,36 +1,38 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <div>
-      <p>
-        If ViewUI is successfully added to this project, you'll see an
-        <code v-text="'<Button>'"></code>
-        below
-      </p>
-      <Button type="primary">Button</Button>
+    <div id="app">
+        <Layout class="ivu-layout-has-sider" id="wrapper">
+            <my-sider/>
+            <Layout id="inside-wrapper">
+                <my-header />
+                <my-content />
+                <my-footer />
+            </Layout>
+        </Layout>
+
     </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+    import MySider from "@/views/MySider";
+    import MyHeader from "@/views/MyHeader";
+    import MyContent from "@/views/MyContent";
+    import MyFooter from "@/views/MyFooter";
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+    export default {
+        name: 'app',
+        components: {
+            MySider,
+            // MySider,
+            MyHeader,
+            MyContent,
+            MyFooter
+        }
+    }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    #inside-wrapper {
+        overflow: initial;
+        min-height: 100vh;
+    }
 </style>
