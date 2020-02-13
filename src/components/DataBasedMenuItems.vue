@@ -2,20 +2,20 @@
     <div class="menu-items-wrapper">
         <div v-for="(menu, idx) in menuListData" :key="idx">
             <div v-if="menu.menu_items">
-                <Submenu :name=menu.name>
+                <Submenu :name="menu.name">
                     <template slot="title">
-                        <Icon :type=menu.icon></Icon>
+                        <Icon :type="menu.icon"></Icon>
                         <span>{{ menu.span }}</span>
                     </template>
-                    <MenuItem v-for="(item, idx) in menu.menu_items" :key="idx" :name=item.name :to=item.to>
-                        <Icon :type=item.icon></Icon>
+                    <MenuItem v-for="(item, idx) in menu.menu_items" :key="idx" :name="item.name" :to=item.to>
+                        <Icon :type="item.icon"></Icon>
                         <span>{{ item.span }}</span>
                     </MenuItem>
                 </Submenu>
             </div>
             <div v-else>
-                <MenuItem :name=menu.name>
-                    <Icon :type=menu.icon></Icon>
+                <MenuItem :name="menu.name">
+                    <Icon :type="menu.icon"></Icon>
                     <span>{{ menu.span }}</span>
                 </MenuItem>
             </div>
