@@ -1,25 +1,24 @@
 <template>
-    <Card v-if="article" style="margin-bottom: 8px; margin-top: 8px">
-        <Row :gutter="8">
-            <i-col span="6">
-                <img :src="article.cover" alt="" class="cover-img">
-            </i-col>
-            <i-col span="18">
-                <h3>{{ article.title }}</h3>
-                <p class="brief">{{ article.brief }}</p>
-                <p class="info">分类：
+    <div v-if="article">
+        <div class="wrapper">
+            <img :src="article.cover" alt="" class="cover-img">
+            <ul class="text-wrapper">
+                <li><h2>{{ article.title }}</h2></li>
+                <li class="brief">{{ article.brief }}</li>
+                <li class="info">分类：
                     <Badge :text="article.category.name"></Badge>
-                </p>
-                <p class="info">标签：
+                </li>
+                <li class="info">标签：
                     <Badge type="warning" v-for="(tag, idx) in article.tags" :key="idx" :text="tag.name"
                            style="margin-right: 8px"></Badge>
-                </p>
-                <p class="info pub-date">
+                </li>
+                <li class="info pub-date">
                     {{ article.user.nickname }} 发表于 {{ article.add_time.split('T')[0] }}
-                </p>
-            </i-col>
-        </Row>
-    </Card>
+                </li>
+            </ul>
+        </div>
+        <Divider/>
+    </div>
 </template>
 
 <script>
@@ -34,20 +33,29 @@
 <style scoped>
     .cover-img {
         height: 150px;
-        width: 100%;
+        width: 200px;
     }
 
     .brief {
-        margin-left: 16px;
+        margin-left: 24px;
         margin-top: 8px;
-        margin-right: 8px;
     }
 
     .info {
         margin-top: 8px;
     }
 
-    .info.pub-date {
+    .pub-date {
         float: right;
+    }
+    .wrapper {
+        display: flex;
+    }
+    .text-wrapper {
+        flex: auto;
+        padding-left: 24px;
+    }
+    ul {
+        list-style-type: none;
     }
 </style>

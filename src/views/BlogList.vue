@@ -2,26 +2,21 @@
     <Row :gutter="12">
         <i-col span="18">
             <Card>
-                <Button>所有分类</Button>
-                <Button v-for="(item ,idx) in blogCategories" :key="idx">
-                    {{ item.name }}
-                </Button>
-                <hr/>
-                <Button>默认排序</Button>
-                <Button>发布时间</Button>
-                <Button>浏览量</Button>
-                <Button>评论量</Button>
-                <Button>收藏量</Button>
+                <Tabs>
+                    <TabPane label="所有分类" icon="logo-windows">
+                        <article-card v-for="(item, idx) in articles" :key="idx" :article="item"></article-card>
+                    </TabPane>
+                    <TabPane v-for="(item ,idx) in blogCategories" :key="idx" :label="item.name">
+                        标签内容
+                    </TabPane>
+                </Tabs>
             </Card>
-            <Row>
-                <article-card v-for="(item, idx) in articles" :key="idx" :article="item"></article-card>
-            </Row>
         </i-col>
         <i-col span="6">
             <Card style="margin-bottom: 8px;">
                 <Button type="primary">写博客</Button>
             </Card>
-            <Card>
+            <Card style="margin-bottom: 8px;">
                 <p slot="title">
                     <Icon type="ios-pricetags-outline"></Icon>
                     博客标签
@@ -32,6 +27,13 @@
                 <Button v-for="(item ,idx) in blogTags" :key="idx">
                     {{ item.name }}
                 </Button>
+            </Card>
+            <Card>
+                <Button>默认排序</Button>
+                <Button>发布时间</Button>
+                <Button>浏览量</Button>
+                <Button>评论量</Button>
+                <Button>收藏量</Button>
             </Card>
         </i-col>
     </Row>
