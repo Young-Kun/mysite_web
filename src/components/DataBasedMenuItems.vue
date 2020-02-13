@@ -7,7 +7,7 @@
                         <Icon :type=menu.icon></Icon>
                         <span>{{ menu.span }}</span>
                     </template>
-                    <MenuItem v-for="(item, idx) in menu.menu_items" :key="idx" :name=item.name>
+                    <MenuItem v-for="(item, idx) in menu.menu_items" :key="idx" :name=item.name :to=item.to>
                         <Icon :type=item.icon></Icon>
                         <span>{{ item.span }}</span>
                     </MenuItem>

@@ -1,8 +1,6 @@
 <template>
     <Content id="content">
-        <Card style="width: 100%">
-            Content
-        </Card>
+        <router-view></router-view>
     </Content>
 </template>
 
@@ -14,7 +12,7 @@
 
 <style scoped>
     #content {
-        display: flex;
         padding: 36px;
+        width: 100%;
     }
 </style>

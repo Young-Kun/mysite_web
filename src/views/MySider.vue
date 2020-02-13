@@ -1,6 +1,6 @@
 <template>
     <Sider id="sider">
-        <div id="brand">
+        <div id="brand" @click="backToIndex">
             LOGO
         </div>
         <keep-alive>
@@ -26,16 +26,17 @@
                     {
                         name: 'contents',
                         icon: 'ios-paper',
-                        span: '内容管理',
+                        span: '查看文章',
                         menu_items: [
-                            {name: 'articles', icon: '', span: '文章管理'},
+                            {name: 'articles', icon: '', span: '文章列表', to: {name: 'blogs'}},
                             {name: 'comments', icon: '', span: '评论管理'},
                         ]
                     },
                     {
                         name: 'users',
                         icon: 'ios-people',
-                        span: '用户管理'
+                        span: '用户管理',
+                        menu_items: ''
                     },
                     {
                         name: 'stats',
@@ -49,6 +50,11 @@
                 ]
             };
         },
+        methods: {
+            backToIndex() {
+                this.$router.push({name: 'index'})
+            }
+        }
     }
 </script>
 
@@ -68,6 +74,7 @@
         text-align: center;
         font-size: xx-large;
         border-bottom: 1px solid #101117;
+        cursor: pointer;
     }
 
     #sider-menu {

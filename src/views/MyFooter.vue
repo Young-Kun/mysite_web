@@ -1,6 +1,8 @@
 <template>
     <Footer>
-        脚部
+        <div style="text-align: center">
+            @CopyRight youngkun.site
+        </div>
     </Footer>
 </template>
 
