@@ -34,7 +34,7 @@
                     相似文章推荐
                 </p>
                 <ul style="list-style: none">
-                    <li v-for="(item, idx) in relatedArticleList" :key="idx">
+                    <li v-for="item in relatedArticleList" :key="item.id">
                         <article-simple-card :article="item"></article-simple-card>
                     </li>
                 </ul>

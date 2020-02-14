@@ -1,13 +1,13 @@
 <template>
     <div class="menu-items-wrapper">
-        <div v-for="(menu, idx) in menuListData" :key="idx">
+        <div v-for="menu in menuListData" :key="menu.id">
             <div v-if="menu.menu_items">
                 <Submenu :name="menu.name">
                     <template slot="title">
                         <Icon :type="menu.icon"></Icon>
                         <span>{{ menu.span }}</span>
                     </template>
-                    <MenuItem v-for="(item, idx) in menu.menu_items" :key="idx" :name="item.name" :to=item.to>
+                    <MenuItem v-for="item in menu.menu_items" :key="item.id" :name="item.name" :to=item.to>
                         <Icon :type="item.icon"></Icon>
                         <span>{{ item.span }}</span>
                     </MenuItem>

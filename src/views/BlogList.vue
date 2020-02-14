@@ -5,7 +5,7 @@
             <Card>
                 <Tabs @on-click="handleSelectCategory" v-model="activeCategory">
                     <TabPane label="所有分类" name="all"></TabPane>
-                    <TabPane v-for="(item ,idx) in blogCategories" :key="idx" :label="item.name"
+                    <TabPane v-for="item  in blogCategories" :key="item.id" :label="item.name"
                              :name="item.id.toString()"></TabPane>
                 </Tabs>
                 <Card :bordered="false" dis-hover style="margin-bottom: 24px; background: #f5f7f9">
@@ -13,7 +13,7 @@
                         默认排序
                     </Button>
                     <ButtonGroup>
-                        <Button v-for="(item, idx) in orderingFields" :key="idx" shape="circle" size="small"
+                        <Button v-for="item  in orderingFields" :key="item.id" shape="circle" size="small"
                                 @click="handleOrdering(item)">
                             {{ item.label }}
                             <Icon v-show="item.ordering===1" type="md-arrow-dropup"/>
@@ -21,7 +21,7 @@
                         </Button>
                     </ButtonGroup>
                 </Card>
-                <article-card v-for="(item, idx) in articles" :key="idx" :article="item"
+                <article-card v-for="item  in articles" :key="item.id" :article="item"
                               @category-click="handleCategoryClick" @tag-click="handleTagClick"></article-card>
                 <Card dis-hover :bordered="false" style="text-align: right">
                     <Page show-total show-elevator show-sizer :total="articlesCount" @on-change="handlePagination"
@@ -42,7 +42,7 @@
                     博客标签
                 </p>
                 <Button style="margin: 3px 1px" shape="circle" @click="handleSelectTags('all')">所有标签</Button>
-                <Button size="small" style="margin: 3px 1px" shape="circle" v-for="(item ,idx) in blogTags" :key="idx"
+                <Button size="small" style="margin: 3px 1px" shape="circle" v-for="item  in blogTags" :key="item.id"
                         @click="handleSelectTags(item)">
                     {{ item.name }}
                 </Button>

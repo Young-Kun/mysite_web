@@ -40,22 +40,25 @@
             return {
                 topMenuList: [
                     {
+                        id: 1,
                         name: 'guide',
                         icon: 'ios-book',
                         span: '指南'
                     },
                     {
+                        id: 2,
                         name: 'quick_start',
                         icon: 'ios-bicycle',
                         span: '快速入门'
                     },
                     {
+                        id: 3,
                         name: 'eco',
                         icon: 'ios-cart',
                         span: '商城',
                         menu_items: [
-                            {name: 'books', icon: '', span: '书籍'},
-                            {name: 'videos', icon: '', span: '视频学习'},
+                            {id: 1, name: 'books', icon: '', span: '书籍'},
+                            {id: 2, name: 'videos', icon: '', span: '视频学习'},
                         ]
                     }
                 ]

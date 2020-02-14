@@ -24,27 +24,30 @@
                 isCollapsed: false,
                 siderMenuList: [
                     {
+                        id: 1,
                         name: 'contents',
                         icon: 'ios-paper',
                         span: '查看文章',
                         menu_items: [
-                            {name: 'articles', icon: '', span: '文章列表', to: {name: 'blogs'}},
-                            {name: 'comments', icon: '', span: '评论管理'},
+                            {id: 1, name: 'articles', icon: '', span: '文章列表', to: {name: 'blogs'}},
+                            {id: 2, name: 'comments', icon: '', span: '评论管理'},
                         ]
                     },
                     {
+                        id: 2,
                         name: 'users',
                         icon: 'ios-people',
                         span: '用户管理',
                         menu_items: ''
                     },
                     {
+                        id: 3,
                         name: 'stats',
                         icon: 'ios-stats',
                         span: '统计分析',
                         menu_items: [
-                            {name: 'favors', icon: '', span: '偏好分析'},
-                            {name: 'periods', icon: '', span: '活跃时段'},
+                            {id: 1, name: 'favors', icon: '', span: '偏好分析'},
+                            {id: 2, name: 'periods', icon: '', span: '活跃时段'},
                         ]
                     },
                 ]

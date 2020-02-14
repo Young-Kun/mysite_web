@@ -13,7 +13,7 @@
                     </Button>
                 </li>
                 <li class="info">标签：
-                    <Button type="warning" size="small" shape="circle" v-for="(tag, idx) in article.tags" :key="idx"
+                    <Button type="warning" size="small" shape="circle" v-for="tag in article.tags" :key="tag.id"
                             style="margin-right: 8px" @click="handleClickTag(tag)">
                         {{ tag.name }}
                     </Button>
