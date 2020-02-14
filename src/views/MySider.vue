@@ -1,5 +1,5 @@
 <template>
-    <Sider id="sider">
+    <Sider id="sider" collapsed-width="0" collapsible v-model="isCollapsed" hide-trigger>
         <div id="brand" @click="backToIndex">
             LOGO
         </div>

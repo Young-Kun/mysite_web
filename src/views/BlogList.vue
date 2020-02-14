@@ -1,7 +1,6 @@
 <template>
     <Row :gutter="12">
         <BackTop :height="1"></BackTop>
-
         <i-col span="18">
             <Card>
                 <Tabs @on-click="handleSelectCategory" v-model="activeCategory">
@@ -26,7 +25,7 @@
                               @category-click="handleCategoryClick" @tag-click="handleTagClick"></article-card>
                 <Card dis-hover :bordered="false" style="text-align: right">
                     <Page show-total show-elevator show-sizer :total="articlesCount" @on-change="handlePagination"
-                      @on-page-size-change="handlePageSizeChange" />
+                          @on-page-size-change="handlePageSizeChange"/>
                 </Card>
             </Card>
         </i-col>
@@ -42,14 +41,13 @@
                     <Icon type="ios-pricetags-outline"></Icon>
                     博客标签
                 </p>
-                <a slot="extra" @click.prevent="changeLimit">
-                    更多标签
-                </a>
                 <Button style="margin: 3px 1px" shape="circle" @click="handleSelectTags('all')">所有标签</Button>
                 <Button size="small" style="margin: 3px 1px" shape="circle" v-for="(item ,idx) in blogTags" :key="idx"
                         @click="handleSelectTags(item)">
                     {{ item.name }}
                 </Button>
+                <Button shape="circle" icon="ios-more" size="small" style="margin: 3px 1px"
+                        @click="changeLimit"></Button>
             </Card>
         </i-col>
     </Row>
@@ -86,6 +84,7 @@
                     {field: 'favor_num', label: '收藏量', ordering: 0},
                     {field: 'comment_num', label: '评论量', ordering: 0},
                     {field: 'user', label: '文章作者', ordering: 0},
+                    {field: 'title', label: '标题', ordering: 0},
                 ]
             }
         },
@@ -94,7 +93,7 @@
                 apiQuery('get', 'blog-categories').then((response) => {
                     this.blogCategories = response.data;
                 }).catch((error) => {
-                    console.log(error);
+                    console.log(error.response);
                 })
             },
             getBlogTags(tagsLimit, tagsOffset) {
@@ -103,7 +102,7 @@
                     this.tagsCount = response.data.count;
                     this.blogTags = response.data.results;
                 }).catch((error) => {
-                    console.log(error);
+                    console.log(error.response);
                 })
             },
             changeLimit() {
@@ -115,7 +114,7 @@
                     this.articles = response.data.results;
                     this.articlesCount = response.data.count;
                 }).catch((error) => {
-                    console.log(error);
+                    console.log(error.response);
                 })
             },
             handleSelectCategory(category) {

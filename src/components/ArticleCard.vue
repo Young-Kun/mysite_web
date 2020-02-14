@@ -3,7 +3,9 @@
         <div class="wrapper">
             <img :src="article.cover" alt="" class="cover-img" @click="gotoArticleDetail">
             <ul class="text-wrapper">
-                <li><h2>{{ article.title }}</h2></li>
+                <Button style="border: none; padding: 0" @click="gotoArticleDetail">
+                    <h2>{{ article.title }}</h2>
+                </Button>
                 <li class="brief">{{ article.brief }}</li>
                 <li class="info">分类：
                     <Button type="error" shape="circle" size="small" @click="handleClickCategory">
@@ -47,7 +49,7 @@
                 this.$emit('tag-click', tag)
             },
             gotoArticleDetail() {
-                this.$router.push({name: 'blog-detail', params: {article: this.article}})
+                this.$router.push({name: 'blog-detail', params: {articleId: this.article.id, categoryId: this.article.category.id}})
             }
         }
     }
