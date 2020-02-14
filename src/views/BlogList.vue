@@ -127,7 +127,7 @@
                 // 把其他字段排序顺序设为0：不排序，改变当前字段的排序顺序
                 this.orderingFields.forEach(function (value) {
                     if (value === item) {
-                        value.ordering = value.ordering === 0 ? 1 : (value.ordering === 1 ? 2 : 1)
+                        value.ordering = value.ordering === 0 ? 2 : (value.ordering === 2 ? 1 : 2)
                     } else {
                         value.ordering = 0
                     }

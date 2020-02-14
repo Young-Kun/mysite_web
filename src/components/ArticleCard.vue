@@ -1,5 +1,5 @@
 <template>
-    <div v-if="article">
+    <div>
         <div class="wrapper">
             <img :src="article.cover" alt="" class="cover-img" @click="gotoArticleDetail">
             <ul class="text-wrapper">
