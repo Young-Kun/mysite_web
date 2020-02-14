@@ -36,6 +36,7 @@
                 <a slot="extra" @click.prevent="changeLimit">
                     更多标签
                 </a>
+                <Button @click="handleSelectTags('all')">所有标签</Button>
                 <Button size="small" style="margin: 3px 1px" shape="circle" v-for="(item ,idx) in blogTags" :key="idx"
                         @click="handleSelectTags(item)">
                     {{ item.name }}
@@ -124,7 +125,7 @@
                 this.getArticles(this.filterParams);
             },
             handleSelectTags(tag) {
-                this.filterParams.tags = tag.id;
+                this.filterParams.tags = tag === 'all' ? null : tag.id;
                 this.getArticles(this.filterParams);
             }
         },
