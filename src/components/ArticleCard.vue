@@ -6,16 +6,16 @@
                 <li><h2>{{ article.title }}</h2></li>
                 <li class="brief">{{ article.brief }}</li>
                 <li class="info">分类：
-                    <Badge :text="article.category.name"></Badge>
+                    <Badge type="primary" :text="article.category.name"></Badge>
                 </li>
                 <li class="info">标签：
-                    <Badge type="warning" v-for="(tag, idx) in article.tags" :key="idx" :text="tag.name"
+                    <Badge type="normal" v-for="(tag, idx) in article.tags" :key="idx" :text="tag.name"
                            style="margin-right: 8px"></Badge>
                 </li>
                 <li class="info">
-                    点击量：<Badge :text="article.click_num"></Badge>
-                    收藏量：<Badge :text="article.favor_num"></Badge>
-                    评论量：<Badge :text="article.comment_num"></Badge>
+                    点击：<Badge type="normal" :count="article.click_num"></Badge>
+                    收藏：<Badge type="normal" :count="article.favor_num"></Badge>
+                    评论：<Badge type="normal" :count="article.comment_num"></Badge>
                 </li>
                 <li class="info pub-date">
                     {{ article.user.nickname }} 发表于 {{ article.add_time.split('T')[0] }}

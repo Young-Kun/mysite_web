@@ -16,8 +16,8 @@
                         <Button v-for="(item, idx) in orderingFields" :key="idx" shape="circle" size="small"
                                 @click="handleOrdering(item)">
                             {{ item.label }}
-                            <Icon v-show="item.ordering===1" type="md-arrow-dropdown"/>
-                            <Icon v-show="item.ordering===2" type="md-arrow-dropup"/>
+                            <Icon v-show="item.ordering===1" type="md-arrow-dropup"/>
+                            <Icon v-show="item.ordering===2" type="md-arrow-dropdown"/>
                         </Button>
                     </ButtonGroup>
                 </Card>
