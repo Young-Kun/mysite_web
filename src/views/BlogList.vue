@@ -1,9 +1,10 @@
 <template>
     <Row :gutter="12">
         <BackTop :height="1"></BackTop>
+
         <i-col span="18">
             <Card>
-                <Tabs @on-click="handleSelectCategory">
+                <Tabs @on-click="handleSelectCategory" v-model="activeCategory">
                     <TabPane label="所有分类" name="all"></TabPane>
                     <TabPane v-for="(item ,idx) in blogCategories" :key="idx" :label="item.name"
                              :name="item.id.toString()"></TabPane>
@@ -21,10 +22,14 @@
                         </Button>
                     </ButtonGroup>
                 </Card>
-                <article-card v-for="(item, idx) in articles" :key="idx" :article="item"></article-card>
+                <article-card v-for="(item, idx) in articles" :key="idx" :article="item"
+                              @category-click="handleCategoryClick" @tag-click="handleTagClick"></article-card>
             </Card>
         </i-col>
         <i-col span="6">
+            <Card style="margin-bottom: 8px;">
+                <Button @click="showAllArticles">显示所有文章</Button>
+            </Card>
             <Card style="margin-bottom: 8px;">
                 <Button type="primary">写博客</Button>
             </Card>
@@ -36,7 +41,7 @@
                 <a slot="extra" @click.prevent="changeLimit">
                     更多标签
                 </a>
-                <Button @click="handleSelectTags('all')">所有标签</Button>
+                <Button style="margin: 3px 1px" shape="circle" @click="handleSelectTags('all')">所有标签</Button>
                 <Button size="small" style="margin: 3px 1px" shape="circle" v-for="(item ,idx) in blogTags" :key="idx"
                         @click="handleSelectTags(item)">
                     {{ item.name }}
@@ -57,6 +62,7 @@
         },
         data() {
             return {
+                activeCategory: '',
                 blogCategories: [],
                 blogTags: [],
                 tagsLimit: 5,
@@ -106,8 +112,8 @@
                     console.log(error);
                 })
             },
-            handleSelectCategory(name) {
-                this.filterParams.category = name === 'all' ? null : name;
+            handleSelectCategory(category) {
+                this.filterParams.category = category === 'all' ? null : category;
                 this.getArticles(this.filterParams);
             },
             handleOrdering(item) {
@@ -120,12 +126,24 @@
                     }
                 });
                 // 返回排序结果
-                let field = item.ordering === 0 ? null : (item.ordering === 1 ? item.field : '-' + item.field)
+                let field = item.ordering === 0 ? null : (item.ordering === 1 ? item.field : '-' + item.field);
                 this.filterParams.ordering = item === 'default' ? null : field;
                 this.getArticles(this.filterParams);
             },
             handleSelectTags(tag) {
                 this.filterParams.tags = tag === 'all' ? null : tag.id;
+                this.getArticles(this.filterParams);
+            },
+            handleCategoryClick(category) {
+                this.activeCategory = category;
+                this.handleSelectCategory(category);
+            },
+            handleTagClick(tag) {
+                this.handleSelectTags(tag);
+            },
+            showAllArticles() {
+                this.filterParams.category = null;
+                this.filterParams.tags = null;
                 this.getArticles(this.filterParams);
             }
         },
