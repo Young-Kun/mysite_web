@@ -36,7 +36,8 @@
                 <a slot="extra" @click.prevent="changeLimit">
                     更多标签
                 </a>
-                <Button v-for="(item ,idx) in blogTags" :key="idx">
+                <Button size="small" style="margin: 3px 1px" shape="circle" v-for="(item ,idx) in blogTags" :key="idx"
+                        @click="handleSelectTags(item)">
                     {{ item.name }}
                 </Button>
             </Card>
@@ -63,7 +64,8 @@
                 articlesCount: 0,
                 filterParams: {
                     category: null,
-                    ordering: null
+                    ordering: null,
+                    tags: null
                 },
                 orderingFields: [
                     {field: 'add_time', label: '发布时间', ordering: 0},
@@ -110,15 +112,19 @@
             handleOrdering(item) {
                 // 把其他字段排序顺序设为0：不排序，改变当前字段的排序顺序
                 this.orderingFields.forEach(function (value) {
-                    if(value === item){
+                    if (value === item) {
                         value.ordering = value.ordering === 0 ? 1 : (value.ordering === 1 ? 2 : 1)
-                    }else{
+                    } else {
                         value.ordering = 0
                     }
                 });
                 // 返回排序结果
                 let field = item.ordering === 0 ? null : (item.ordering === 1 ? item.field : '-' + item.field)
                 this.filterParams.ordering = item === 'default' ? null : field;
+                this.getArticles(this.filterParams);
+            },
+            handleSelectTags(tag) {
+                this.filterParams.tags = tag.id;
                 this.getArticles(this.filterParams);
             }
         },
