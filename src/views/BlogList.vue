@@ -74,11 +74,11 @@
                 articles: [],
                 articlesCount: 0,
                 filterParams: {
+                    page: null,
+                    page_size: null,
                     category: null,
                     ordering: null,
                     tags: null,
-                    page: null,
-                    page_size: null
                 },
                 orderingFields: [
                     {field: 'add_time', label: '发布时间', ordering: 0},
@@ -119,6 +119,7 @@
                 })
             },
             handleSelectCategory(category) {
+                this.filterParams.page = null;
                 this.filterParams.category = category === 'all' ? null : category;
                 this.getArticles(this.filterParams);
             },
@@ -137,6 +138,7 @@
                 this.getArticles(this.filterParams);
             },
             handleSelectTags(tag) {
+                this.filterParams.page = null;
                 this.filterParams.tags = tag === 'all' ? null : tag.id;
                 this.getArticles(this.filterParams);
             },
@@ -150,7 +152,6 @@
             showAllArticles() {
                 this.filterParams.category = null;
                 this.filterParams.tags = null;
-                this.filterParams.page = null;
                 this.getArticles(this.filterParams);
             },
             handlePagination(page) {
