@@ -12,6 +12,11 @@
                     <Badge type="warning" v-for="(tag, idx) in article.tags" :key="idx" :text="tag.name"
                            style="margin-right: 8px"></Badge>
                 </li>
+                <li class="info">
+                    点击量：<Badge :text="article.click_num"></Badge>
+                    收藏量：<Badge :text="article.favor_num"></Badge>
+                    评论量：<Badge :text="article.comment_num"></Badge>
+                </li>
                 <li class="info pub-date">
                     {{ article.user.nickname }} 发表于 {{ article.add_time.split('T')[0] }}
                 </li>
@@ -32,8 +37,8 @@
 
 <style scoped>
     .cover-img {
-        height: 150px;
-        width: 200px;
+        height: 170px;
+        width: 250px;
     }
 
     .brief {
@@ -48,13 +53,16 @@
     .pub-date {
         float: right;
     }
+
     .wrapper {
         display: flex;
     }
+
     .text-wrapper {
         flex: auto;
         padding-left: 24px;
     }
+
     ul {
         list-style-type: none;
     }
