@@ -24,6 +24,10 @@
                 </Card>
                 <article-card v-for="(item, idx) in articles" :key="idx" :article="item"
                               @category-click="handleCategoryClick" @tag-click="handleTagClick"></article-card>
+                <Card dis-hover :bordered="false" style="text-align: right">
+                    <Page show-total show-elevator show-sizer :total="articlesCount" @on-change="handlePagination"
+                      @on-page-size-change="handlePageSizeChange" />
+                </Card>
             </Card>
         </i-col>
         <i-col span="6">
@@ -72,7 +76,9 @@
                 filterParams: {
                     category: null,
                     ordering: null,
-                    tags: null
+                    tags: null,
+                    page: null,
+                    page_size: null
                 },
                 orderingFields: [
                     {field: 'add_time', label: '发布时间', ordering: 0},
@@ -144,6 +150,15 @@
             showAllArticles() {
                 this.filterParams.category = null;
                 this.filterParams.tags = null;
+                this.filterParams.page = null;
+                this.getArticles(this.filterParams);
+            },
+            handlePagination(page) {
+                this.filterParams.page = page;
+                this.getArticles(this.filterParams);
+            },
+            handlePageSizeChange(pageSize) {
+                this.filterParams.page_size = pageSize;
                 this.getArticles(this.filterParams);
             }
         },

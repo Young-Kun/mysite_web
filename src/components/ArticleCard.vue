@@ -63,6 +63,8 @@
 
     .info {
         margin-top: 8px;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     .pub-date {
