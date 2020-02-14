@@ -4,7 +4,8 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-    {path: '/blogs', name: 'blogs', component: () => import("@/views/BlogList")}
+    {path: '/blogs', name: 'blogs', component: () => import("@/views/BlogList")},
+    {path: '/blog/detail', name: 'blog-detail', component: () => import("@/views/BlogDetail")}
 ]
 
 const router = new VueRouter({

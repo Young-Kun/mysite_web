@@ -1,7 +1,7 @@
 <template>
     <div v-if="article">
         <div class="wrapper">
-            <img :src="article.cover" alt="" class="cover-img">
+            <img :src="article.cover" alt="" class="cover-img" @click="gotoArticleDetail">
             <ul class="text-wrapper">
                 <li><h2>{{ article.title }}</h2></li>
                 <li class="brief">{{ article.brief }}</li>
@@ -12,7 +12,7 @@
                 </li>
                 <li class="info">标签：
                     <Button type="warning" size="small" shape="circle" v-for="(tag, idx) in article.tags" :key="idx"
-                           style="margin-right: 8px" @click="handleClickTag(tag)">
+                            style="margin-right: 8px" @click="handleClickTag(tag)">
                         {{ tag.name }}
                     </Button>
                 </li>
@@ -45,6 +45,9 @@
             },
             handleClickTag(tag) {
                 this.$emit('tag-click', tag)
+            },
+            gotoArticleDetail() {
+                this.$router.push({name: 'blog-detail', params: {article: this.article}})
             }
         }
     }
@@ -54,6 +57,11 @@
     .cover-img {
         height: 170px;
         width: 250px;
+        cursor: pointer;
+    }
+
+    .cover-img:hover {
+        box-shadow: 0 0 3px 3px rgba(53, 64, 82, 0.3);
     }
 
     .brief {
