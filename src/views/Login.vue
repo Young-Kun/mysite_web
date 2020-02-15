@@ -35,6 +35,7 @@
 <script>
     import {apiQuery} from "@/api/api";
     import cookie from "@/store/cookie";
+    import {mapActions} from 'vuex';
 
     export default {
         name: "Login",
@@ -69,6 +70,7 @@
             focusUser() {
                 this.$refs.loginUserInput.focus()
             },
+            ...mapActions(['setInfo']),
             handleSubmit(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
@@ -78,7 +80,7 @@
                         }).then((response) => {
                             cookie.setCookie('username', this.loginFormModel.account);
                             cookie.setCookie('token', response.data.token);
-                            this.$store.dispatch('setInfo');
+                            this.setInfo();
                             this.$emit('login-success');
                         }).catch((error) => {
                             console.log(error.response);

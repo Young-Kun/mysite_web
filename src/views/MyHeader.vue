@@ -14,7 +14,7 @@
         <div id="search" style="margin-right: auto">
             <Input search placeholder="Search..." clearable/>
         </div>
-        <Menu mode="horizontal" theme="light" style="padding: 0 24px">
+        <Menu v-if="!userInfo.username"  mode="horizontal" theme="light" style="padding: 0 24px">
             <!--注册按钮-->
             <a type="text" @click.prevent="handleShowRegisterModal">注册</a>
             <Modal v-model="showRegisterModal"
@@ -36,17 +36,17 @@
                        @login-success="handleLoginSuccess"></login>
             </Modal>
         </Menu>
-        <!--        &lt;!&ndash;用户菜单&ndash;&gt;-->
-        <!--        <Dropdown placement="bottom-end" id="user">-->
-        <!--            <div class="avatar">-->
-        <!--                <img src="@/assets/avatar.jpg" width="36px" height="36px" alt="">-->
-        <!--                <span>kun</span>-->
-        <!--            </div>-->
-        <!--            <DropdownMenu slot="list">-->
-        <!--                <DropdownItem>修改密码</DropdownItem>-->
-        <!--                <DropdownItem>退出</DropdownItem>-->
-        <!--            </DropdownMenu>-->
-        <!--        </Dropdown>-->
+        <!--用户菜单-->
+        <Dropdown v-if="userInfo.username" placement="bottom-end" id="user">
+            <div class="avatar">
+                <img src="@/assets/avatar.jpg" width="36px" height="36px" alt="">
+                <span>{{ userInfo.username }}</span>
+            </div>
+            <DropdownMenu slot="list">
+                <DropdownItem>修改密码</DropdownItem>
+                <DropdownItem>退出</DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
     </Header>
 </template>
 
@@ -54,6 +54,7 @@
     import DataBasedMenuItems from "@/components/DataBasedMenuItems";
     import Login from "@/views/Login";
     import Register from "@/views/Register";
+    import {mapGetters} from 'vuex';
 
     export default {
         name: "MyHeader",
@@ -91,6 +92,9 @@
                     }
                 ]
             }
+        },
+        computed: {
+            ...mapGetters(['userInfo']),
         },
         methods: {
             gotoRegister() {
