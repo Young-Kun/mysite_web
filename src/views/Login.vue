@@ -1,5 +1,8 @@
 <template>
-    <Form ref="loginForm" :model="loginFormModel" :rules="loginFormRule" style="margin: auto">
+    <Form ref="loginForm"
+          :model="loginFormModel"
+          :rules="loginFormRule"
+          style="margin: auto">
         <Divider>用户登录</Divider>
         <FormItem prop="account" autofocus>
             <i-input prefix="ios-person"
@@ -20,7 +23,7 @@
             </i-input>
         </FormItem>
         <FormItem>
-            <Button type="primary" long>登录</Button>
+            <Button type="primary" long @click="handleSubmit('loginForm')">登录</Button>
         </FormItem>
         <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
             <span>还没有账号？去<a @click.prevent="$emit('goto-register')">注册</a></span>
@@ -30,10 +33,13 @@
 </template>
 
 <script>
+    import {apiQuery} from "@/api/api";
+
     export default {
         name: "Login",
         data() {
             return {
+                passwordMinLength: 3,
                 loginFormModel: {
                     account: '',
                     password: ''
@@ -44,7 +50,12 @@
                     ],
                     password: [
                         {required: true, message: '密码不能为空', trigger: 'blur'},
-                        {type: 'string', min: 6, message: '密码不能低于6位', trigger: 'blur'}
+                        {
+                            type: 'string',
+                            min: this.passwordMinLength,
+                            message: '密码不能低于' + this.passwordMinLength + '位',
+                            trigger: 'blur'
+                        },
                     ]
                 }
             }
@@ -53,9 +64,24 @@
             focusUser() {
                 this.$refs.loginUserInput.focus()
             },
-            // handleSubmit(name) {
-            //
-            // }
+            handleSubmit(name) {
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        apiQuery('post', 'jwt-token-auth', null, {
+                            username: this.loginFormModel.account,
+                            password: this.loginFormModel.password
+                        }).then((response) => {
+                            console.log(response.data);
+                            this.$Message.success('登录成功！');
+                        }).catch((error) => {
+                            console.log(error.response);
+                            this.$Message.error('用户名或密码错误！')
+                        });
+                    } else {
+                        this.$Message.error('数据填写有误，请检查')
+                    }
+                })
+            }
         }
     }
 </script>

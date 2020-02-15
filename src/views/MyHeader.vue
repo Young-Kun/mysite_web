@@ -107,8 +107,6 @@
                 this.showRegisterModal = true;
             },
             handleFocus(name, isShow) {
-                console.log(name);
-                console.log(isShow);
                 if (isShow) {
                     this.$nextTick(() => {
                         this.$refs[name].focusUser();

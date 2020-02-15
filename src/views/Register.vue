@@ -91,6 +91,7 @@
                 callback()
             };
             return {
+                passwordMinLength: 3,
                 loading: false,
                 defaultWaitTime: 30,
                 waitTime: 0,
@@ -115,7 +116,12 @@
                     ],
                     password: [
                         {required: true, message: '密码不能为空', trigger: 'blur'},
-                        {type: 'string', min: 6, message: '密码不能低于6位', trigger: 'blur'},
+                        {
+                            type: 'string',
+                            min: this.passwordMinLength,
+                            message: '密码不能低于' + this.passwordMinLength + '位',
+                            trigger: 'blur'
+                        },
                         {validator: passwordValidator, trigger: 'blur'}
                     ],
                     password2: [
