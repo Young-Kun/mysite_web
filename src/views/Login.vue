@@ -76,10 +76,10 @@
                             username: this.loginFormModel.account,
                             password: this.loginFormModel.password
                         }).then((response) => {
-                            console.log(response.data);
                             cookie.setCookie('username', this.loginFormModel.account);
                             cookie.setCookie('token', response.data.token);
-                            this.$Message.success('登录成功！');
+                            this.$store.dispatch('setInfo');
+                            this.$emit('login-success');
                         }).catch((error) => {
                             console.log(error.response);
                             this.$Message.error('用户名或密码错误！')

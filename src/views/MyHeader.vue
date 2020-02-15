@@ -32,7 +32,8 @@
                    :mask-closable="false"
                    style="text-align: center"
                    @on-visible-change="handleFocus('loginComponent', $event)">
-                <login ref="loginComponent" style="width: 60%" @goto-register="gotoRegister"></login>
+                <login ref="loginComponent" style="width: 60%" @goto-register="gotoRegister"
+                       @login-success="handleLoginSuccess"></login>
             </Modal>
         </Menu>
         <!--        &lt;!&ndash;用户菜单&ndash;&gt;-->
@@ -113,6 +114,10 @@
                     })
                 }
             },
+            handleLoginSuccess() {
+                this.$Message.success('登录成功！');
+                this.showLoginModal = false;
+            }
         }
     }
 </script>
