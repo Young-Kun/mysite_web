@@ -21,7 +21,7 @@
                    footer-hide
                    :mask-closable="false"
                    style="text-align: center"
-                   @on-visible-change="handleRegisterFocus">
+                   @on-visible-change="handleFocus('registerComponent', $event)">
                 <register ref="registerComponent" style="width: 60%" @goto-login="gotoLogin"></register>
             </Modal>
             <Divider type="vertical"></Divider>
@@ -31,7 +31,7 @@
                    footer-hide
                    :mask-closable="false"
                    style="text-align: center"
-                   @on-visible-change="handleLoginFocus">
+                   @on-visible-change="handleFocus('loginComponent', $event)">
                 <login ref="loginComponent" style="width: 60%" @goto-register="gotoRegister"></login>
             </Modal>
         </Menu>
@@ -106,20 +106,15 @@
             handleShowRegisterModal() {
                 this.showRegisterModal = true;
             },
-            handleLoginFocus(isShow) {
+            handleFocus(name, isShow) {
+                console.log(name);
+                console.log(isShow);
                 if (isShow) {
                     this.$nextTick(() => {
-                        this.$refs.loginComponent.focusUser();
+                        this.$refs[name].focusUser();
                     })
                 }
             },
-            handleRegisterFocus(isShow) {
-                if (isShow) {
-                    this.$nextTick(() => {
-                        this.$refs.registerComponent.focusUser();
-                    })
-                }
-            }
         }
     }
 </script>

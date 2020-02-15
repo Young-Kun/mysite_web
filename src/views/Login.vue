@@ -52,7 +52,10 @@
         methods: {
             focusUser() {
                 this.$refs.loginUserInput.focus()
-            }
+            },
+            // handleSubmit(name) {
+            //
+            // }
         }
     }
 </script>
