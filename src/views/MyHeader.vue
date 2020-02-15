@@ -18,13 +18,16 @@
             <!--注册按钮-->
             <a type="text" @click.prevent="showRegisterModal=true">注册</a>
             <Modal v-model="showRegisterModal" footer-hide :mask-closable="false" style="text-align: center">
-                <register style="width: 60%"></register>
+                <register style="width: 60%" @goto-login="gotoLogin"></register>
             </Modal>
             <Divider type="vertical"></Divider>
             <!--登录按钮-->
             <a type="text" @click.prevent="showLoginModal=true">登录</a>
-            <Modal v-model="showLoginModal" footer-hide :mask-closable="false" style="text-align: center">
-                <login style="width: 60%"></login>
+            <Modal v-model="showLoginModal"
+                   footer-hide
+                   :mask-closable="false"
+                   style="text-align: center">
+                <login style="width: 60%" @goto-register="gotoRegister"></login>
             </Modal>
         </Menu>
         <!--        &lt;!&ndash;用户菜单&ndash;&gt;-->
@@ -81,6 +84,16 @@
                         ]
                     }
                 ]
+            }
+        },
+        methods: {
+            gotoRegister() {
+                this.showLoginModal = false;
+                this.showRegisterModal = true;
+            },
+            gotoLogin() {
+                this.showRegisterModal = false;
+                this.showLoginModal = true;
             }
         }
     }

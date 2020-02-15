@@ -49,7 +49,7 @@
             <Button type="primary" long>注册</Button>
         </FormItem>
         <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
-            <span>已有账号？去<a>登录</a></span>
+            <span>已有账号？去<a @click.prevent="$emit('goto-login')">登录</a></span>
             <span style="margin-left: auto"><a>忘记密码</a></span>
         </div>
     </Form>
