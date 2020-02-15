@@ -27,7 +27,7 @@
                    footer-hide
                    :mask-closable="false"
                    style="text-align: center">
-                <login style="width: 60%" @goto-register="gotoRegister"></login>
+                <login ref="loginComponent" style="width: 60%" @goto-register="gotoRegister"></login>
             </Modal>
         </Menu>
         <!--        &lt;!&ndash;用户菜单&ndash;&gt;-->
@@ -94,7 +94,7 @@
             gotoLogin() {
                 this.showRegisterModal = false;
                 this.showLoginModal = true;
-            }
+            },
         }
     }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <Form ref="loginForm" :model="loginFormModel" :rules="loginFormRule" style="margin: auto">
         <Divider>用户登录</Divider>
-        <FormItem prop="account">
+        <FormItem prop="account" autofocus>
             <i-input prefix="ios-person"
                      type="text"
                      clearable

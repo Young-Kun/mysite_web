@@ -146,6 +146,7 @@
     .verify-code-send:focus {
         box-shadow: none;
     }
+
     .verify-code-send {
         width: 8rem;
     }
