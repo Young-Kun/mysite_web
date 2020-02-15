@@ -34,6 +34,7 @@
 
 <script>
     import {apiQuery} from "@/api/api";
+    import cookie from "@/store/cookie";
 
     export default {
         name: "Login",
@@ -44,17 +45,21 @@
                     account: '',
                     password: ''
                 },
-                loginFormRule: {
+            }
+        },
+        computed: {
+            loginFormRule() {
+                return {
                     account: [
-                        {required: true, message: '用户名/手机/邮箱 不能为空', trigger: 'blur'}
+                        {required: true, message: '用户名/手机/邮箱 不能为空', trigger: 'change'}
                     ],
                     password: [
-                        {required: true, message: '密码不能为空', trigger: 'blur'},
+                        {required: true, message: '密码不能为空', trigger: 'change'},
                         {
                             type: 'string',
                             min: this.passwordMinLength,
                             message: '密码不能低于' + this.passwordMinLength + '位',
-                            trigger: 'blur'
+                            trigger: 'change'
                         },
                     ]
                 }
@@ -72,6 +77,8 @@
                             password: this.loginFormModel.password
                         }).then((response) => {
                             console.log(response.data);
+                            cookie.setCookie('username', this.loginFormModel.account);
+                            cookie.setCookie('token', response.data.token);
                             this.$Message.success('登录成功！');
                         }).catch((error) => {
                             console.log(error.response);

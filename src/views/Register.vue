@@ -60,36 +60,6 @@
     export default {
         name: "Login",
         data() {
-            const accountValidator = (rule, value, callback) => {
-                if (value.indexOf('@') > -1) {
-                    if (!(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/).test(value)) {
-                        callback(new Error('邮箱格式不正确'))
-                    }
-                    callback()
-                } else {
-                    if (value.length !== 11) {
-                        callback(new Error('手机号码必须是11位'))
-                    } else if (!(/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/.test(value))) {
-                        callback(new Error('手机号码格式不正确'))
-                    }
-                    callback()
-                }
-            };
-            const usernameValidator = (rule, value, callback) => {
-                callback()
-            };
-            const passwordValidator = (rule, value, callback) => {
-                if (this.loginFormModel.password2 !== '') {
-                    this.$refs.loginForm.validateField('password2')
-                }
-                callback()
-            };
-            const password2Validator = (rule, value, callback) => {
-                if (value !== this.loginFormModel.password) {
-                    callback(new Error('两次输入的密码不一致'))
-                }
-                callback()
-            };
             return {
                 passwordMinLength: 3,
                 loading: false,
@@ -101,32 +71,66 @@
                     username: '',
                     password: '',
                     password2: ''
-                },
-                loginFormRule: {
+                }
+            }
+        },
+        computed: {
+            loginFormRule() {
+                const accountValidator = (rule, value, callback) => {
+                    if (value.indexOf('@') > -1) {
+                        if (!(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/).test(value)) {
+                            callback(new Error('邮箱格式不正确'))
+                        }
+                        callback()
+                    } else {
+                        if (value.length !== 11) {
+                            callback(new Error('手机号码必须是11位'))
+                        } else if (!(/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/.test(value))) {
+                            callback(new Error('手机号码格式不正确'))
+                        }
+                        callback()
+                    }
+                };
+                const usernameValidator = (rule, value, callback) => {
+                    callback()
+                };
+                const passwordValidator = (rule, value, callback) => {
+                    if (this.loginFormModel.password2 !== '') {
+                        this.$refs.loginForm.validateField('password2')
+                    }
+                    callback()
+                };
+                const password2Validator = (rule, value, callback) => {
+                    if (value !== this.loginFormModel.password) {
+                        callback(new Error('两次输入的密码不一致'))
+                    }
+                    callback()
+                };
+                return {
                     account: [
-                        {required: true, message: '手机/邮箱 不能为空', trigger: 'blur'},
-                        {validator: accountValidator, trigger: 'blur'}
+                        {required: true, message: '手机/邮箱 不能为空', trigger: 'change'},
+                        {validator: accountValidator, trigger: 'change'}
                     ],
                     verifyCode: [
-                        {required: true, message: '请输入验证码', trigger: 'blur'},
+                        {required: true, message: '请输入验证码', trigger: 'change'},
                     ],
                     username: [
-                        {required: true, message: '密码不能为空', trigger: 'blur'},
-                        {validator: usernameValidator, trigger: 'blur'}
+                        {required: true, message: '密码不能为空', trigger: 'change'},
+                        {validator: usernameValidator, trigger: 'change'}
                     ],
                     password: [
-                        {required: true, message: '密码不能为空', trigger: 'blur'},
+                        {required: true, message: '密码不能为空', trigger: 'change'},
                         {
                             type: 'string',
                             min: this.passwordMinLength,
                             message: '密码不能低于' + this.passwordMinLength + '位',
-                            trigger: 'blur'
+                            trigger: 'change'
                         },
-                        {validator: passwordValidator, trigger: 'blur'}
+                        {validator: passwordValidator, trigger: 'change'}
                     ],
                     password2: [
-                        {required: true, message: '请再次输入你的密码', trigger: 'blur'},
-                        {validator: password2Validator, trigger: 'blur'}
+                        {required: true, message: '请再次输入你的密码', trigger: 'change'},
+                        {validator: password2Validator, trigger: 'change'}
                     ]
                 }
             }
