@@ -1,7 +1,7 @@
-const userInfo = (state) => {
-    return state.userInfo
+const userName = (state) => {
+    return state.userInfo.username
 };
 
 export default {
-    userInfo
+    userName
 }

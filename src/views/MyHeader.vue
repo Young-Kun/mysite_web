@@ -14,7 +14,7 @@
         <div id="search" style="margin-right: auto">
             <Input search placeholder="Search..." clearable/>
         </div>
-        <Menu v-if="!userInfo.username"  mode="horizontal" theme="light" style="padding: 0 24px">
+        <Menu v-if="!userName"  mode="horizontal" theme="light" style="padding: 0 24px">
             <!--注册按钮-->
             <a type="text" @click.prevent="handleShowRegisterModal">注册</a>
             <Modal v-model="showRegisterModal"
@@ -37,10 +37,10 @@
             </Modal>
         </Menu>
         <!--用户菜单-->
-        <Dropdown v-if="userInfo.username" placement="bottom-end" id="user">
+        <Dropdown v-if="userName" placement="bottom-end" id="user">
             <div class="avatar">
                 <img src="@/assets/avatar.jpg" width="36px" height="36px" alt="">
-                <span>{{ userInfo.username }}</span>
+                <span>{{ userName }}</span>
             </div>
             <DropdownMenu slot="list">
                 <DropdownItem>修改密码</DropdownItem>
@@ -94,7 +94,7 @@
             }
         },
         computed: {
-            ...mapGetters(['userInfo']),
+            ...mapGetters(['userName']),
         },
         methods: {
             gotoRegister() {
