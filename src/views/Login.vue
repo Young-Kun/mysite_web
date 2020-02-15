@@ -90,7 +90,19 @@
                         this.$Message.error('数据填写有误，请检查')
                     }
                 })
+            },
+            // 回车键提交表单事件
+            submitForm(e) {
+                if (e.keyCode === 13) {
+                    this.handleSubmit('loginForm');
+                }
             }
+        },
+        mounted() {
+            document.addEventListener('keydown', this.submitForm);
+        },
+        beforeDestroy() {
+            document.removeEventListener('keydown', this.submitForm);
         }
     }
 </script>

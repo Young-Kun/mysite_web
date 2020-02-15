@@ -14,7 +14,7 @@
         <div id="search" style="margin-right: auto">
             <Input search placeholder="Search..." clearable/>
         </div>
-        <Menu v-if="!userName"  mode="horizontal" theme="light" style="padding: 0 24px">
+        <Menu v-if="!userName" mode="horizontal" theme="light" style="padding: 0 24px">
             <!--注册按钮-->
             <a type="text" @click.prevent="handleShowRegisterModal">注册</a>
             <Modal v-model="showRegisterModal"
@@ -37,14 +37,14 @@
             </Modal>
         </Menu>
         <!--用户菜单-->
-        <Dropdown v-if="userName" placement="bottom-end" id="user">
+        <Dropdown v-if="userName" placement="bottom-end" id="user" @on-click="handleUserMenuClick">
             <div class="avatar">
                 <img src="@/assets/avatar.jpg" width="36px" height="36px" alt="">
                 <span>{{ userName }}</span>
             </div>
             <DropdownMenu slot="list">
-                <DropdownItem>修改密码</DropdownItem>
-                <DropdownItem>退出</DropdownItem>
+                <DropdownItem name="change-password">修改密码</DropdownItem>
+                <DropdownItem name="logout">退出</DropdownItem>
             </DropdownMenu>
         </Dropdown>
     </Header>
@@ -54,7 +54,8 @@
     import DataBasedMenuItems from "@/components/DataBasedMenuItems";
     import Login from "@/views/Login";
     import Register from "@/views/Register";
-    import {mapGetters} from 'vuex';
+    import cookie from "@/store/cookie";
+    import {mapGetters, mapActions} from 'vuex';
 
     export default {
         name: "MyHeader",
@@ -97,6 +98,7 @@
             ...mapGetters(['userName']),
         },
         methods: {
+            ...mapActions(['setInfo']),
             gotoRegister() {
                 this.showLoginModal = false;
                 this.showRegisterModal = true;
@@ -121,6 +123,14 @@
             handleLoginSuccess() {
                 this.$Message.success('登录成功！');
                 this.showLoginModal = false;
+            },
+            handleUserMenuClick(name) {
+                if (name === 'logout') {
+                    cookie.delCookie('username');
+                    cookie.delCookie('userid');
+                    cookie.delCookie('token');
+                    this.setInfo();
+                }
             }
         }
     }
