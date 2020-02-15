@@ -6,8 +6,6 @@ const userInfo = {
     token: cookie.getCookie('token') || ''
 };
 
-const state = {
+export default {
     userInfo
 };
-
-export default state
