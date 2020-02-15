@@ -11,33 +11,52 @@
             </Menu>
         </keep-alive>
         <!--搜索框-->
-        <div id="search">
+        <div id="search" style="margin-right: auto">
             <Input search placeholder="Search..." clearable/>
         </div>
-        <!--用户菜单-->
-        <Dropdown placement="bottom-end" id="user">
-            <div class="avatar">
-                <img src="@/assets/avatar.jpg" width="36px" height="36px" alt="">
-                <span>kun</span>
-            </div>
-            <DropdownMenu slot="list">
-                <DropdownItem>修改密码</DropdownItem>
-                <DropdownItem>退出</DropdownItem>
-            </DropdownMenu>
-        </Dropdown>
+        <Menu mode="horizontal" theme="light" style="padding: 0 24px">
+            <!--注册按钮-->
+            <a type="text" @click.prevent="showRegisterModal=true">注册</a>
+            <Modal v-model="showRegisterModal" footer-hide :mask-closable="false" style="text-align: center">
+                <register style="width: 60%"></register>
+            </Modal>
+            <Divider type="vertical"></Divider>
+            <!--登录按钮-->
+            <a type="text" @click.prevent="showLoginModal=true">登录</a>
+            <Modal v-model="showLoginModal" footer-hide :mask-closable="false" style="text-align: center">
+                <login style="width: 60%"></login>
+            </Modal>
+        </Menu>
+        <!--        &lt;!&ndash;用户菜单&ndash;&gt;-->
+        <!--        <Dropdown placement="bottom-end" id="user">-->
+        <!--            <div class="avatar">-->
+        <!--                <img src="@/assets/avatar.jpg" width="36px" height="36px" alt="">-->
+        <!--                <span>kun</span>-->
+        <!--            </div>-->
+        <!--            <DropdownMenu slot="list">-->
+        <!--                <DropdownItem>修改密码</DropdownItem>-->
+        <!--                <DropdownItem>退出</DropdownItem>-->
+        <!--            </DropdownMenu>-->
+        <!--        </Dropdown>-->
     </Header>
 </template>
 
 <script>
     import DataBasedMenuItems from "@/components/DataBasedMenuItems";
+    import Login from "@/views/Login";
+    import Register from "@/views/Register";
 
     export default {
         name: "MyHeader",
         components: {
+            Register,
+            Login,
             DataBasedMenuItems
         },
         data() {
             return {
+                showRegisterModal: false,
+                showLoginModal: false,
                 topMenuList: [
                     {
                         id: 1,
@@ -112,7 +131,6 @@
     #user {
         cursor: pointer;
         padding: 0 10px;
-        margin-left: auto;
     }
 
     #user .avatar {

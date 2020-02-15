@@ -1,0 +1,133 @@
+<template>
+    <Form ref="loginForm" :model="loginFormModel" :rules="loginFormRule" style="margin: auto">
+        <Divider>用户注册</Divider>
+        <FormItem prop="account">
+            <i-input prefix="ios-person"
+                     type="text"
+                     clearable
+                     maxlength="150"
+                     v-model="loginFormModel.account"
+                     placeholder="手机号/邮箱">
+            </i-input>
+        </FormItem>
+        <FormItem prop="verifyCode">
+            <i-input prefix="ios-key"
+                     type="text"
+                     v-model="loginFormModel.verifyCode"
+                     placeholder="验证码">
+                <Button class="verify-code-send" slot="append" :loading="loading" @click="handleSendVerifyCode">
+                    <span v-show="!loading">发送验证码</span>
+                    <span v-show="loading">{{ waitTime }}秒后可重发</span>
+                </Button>
+            </i-input>
+        </FormItem>
+        <FormItem prop="password">
+            <i-input prefix="ios-lock"
+                     type="password"
+                     password
+                     v-model="loginFormModel.password"
+                     placeholder="密码">
+            </i-input>
+        </FormItem>
+        <FormItem prop="password2">
+            <i-input prefix="ios-lock"
+                     type="password"
+                     password
+                     v-model="loginFormModel.password2"
+                     placeholder="确认密码">
+            </i-input>
+        </FormItem>
+        <FormItem>
+            <Button type="primary" long>注册</Button>
+        </FormItem>
+        <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
+            <span>已有账号？去<a>登录</a></span>
+            <span style="margin-left: auto"><a>忘记密码</a></span>
+        </div>
+    </Form>
+</template>
+
+<script>
+    export default {
+        name: "Login",
+        data() {
+            const accountValidator = (rule, value, callback) => {
+                if (value.indexOf('@') > -1) {
+                    if (!(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/).test(value)) {
+                        callback(new Error('邮箱格式不正确'))
+                    }
+                    callback()
+                } else {
+                    if (value.length !== 11) {
+                        callback(new Error('手机号码必须是11位'))
+                    } else if (!(/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/.test(value))) {
+                        callback(new Error('手机号码格式不正确'))
+                    }
+                    callback()
+                }
+            };
+            const passwordValidator = (rule, value, callback) => {
+                if (this.loginFormModel.password2 !== '') {
+                    this.$refs.loginForm.validateField('password2')
+                }
+                callback()
+            };
+            const password2Validator = (rule, value, callback) => {
+                if (value !== this.loginFormModel.password) {
+                    callback(new Error('两次输入的密码不一致'))
+                }
+                callback()
+            };
+            return {
+                loading: false,
+                defaultWaitTime: 60,
+                waitTime: 0,
+                loginFormModel: {
+                    account: '',
+                    verifyCode: '',
+                    password: '',
+                    password2: ''
+                },
+                loginFormRule: {
+                    account: [
+                        {required: true, message: '手机/邮箱 不能为空', trigger: 'blur'},
+                        {validator: accountValidator, trigger: 'blur'}
+                    ],
+                    verifyCode: [
+                        {required: true, message: '请输入验证码', trigger: 'blur'},
+                    ],
+                    password: [
+                        {required: true, message: '密码不能为空', trigger: 'blur'},
+                        {type: 'string', min: 6, message: '密码不能低于6位', trigger: 'blur'},
+                        {validator: passwordValidator, trigger: 'blur'}
+                    ],
+                    password2: [
+                        {required: true, message: '请再次输入你的密码', trigger: 'blur'},
+                        {validator: password2Validator, trigger: 'blur'}
+                    ]
+                }
+            }
+        },
+        methods: {
+            handleSendVerifyCode() {
+                this.loading = true;
+                this.waitTime = this.defaultWaitTime;
+                let t1 = setInterval(() => {
+                    this.waitTime -= 1;
+                }, 1000);
+                let t2 = setTimeout(() => {
+                    this.loading = false;
+                    this.waitTime = this.defaultWaitTime;
+                    window.clearTimeout(t1);
+                    window.clearTimeout(t2);
+                }, 1000 * this.defaultWaitTime);
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .verify-code-send:focus {
+        box-shadow: none;
+    }
+</style>
