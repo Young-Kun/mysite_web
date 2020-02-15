@@ -46,8 +46,15 @@
                         @click="handleSelectTags(item)">
                     {{ item.name }}
                 </Button>
-                <Button shape="circle" icon="ios-more" size="small" style="margin: 3px 1px"
-                        @click="changeLimit"></Button>
+                <Tooltip placement="bottom">
+                    <div slot="content">
+                        <small>更多标签</small>
+                    </div>
+                    <Button shape="circle" icon="ios-more" size="small" style="margin: 3px 1px"
+                            @click="changeLimit" v-show="showMore">
+
+                    </Button>
+                </Tooltip>
             </Card>
         </i-col>
     </Row>
@@ -64,6 +71,7 @@
         },
         data() {
             return {
+                showMore: true,
                 activeCategory: '',
                 blogCategories: [],
                 blogTags: [],
@@ -80,6 +88,7 @@
                 },
                 orderingFields: [
                     {field: 'add_time', label: '发布时间', ordering: 0},
+                    {field: 'modify_time', label: '最后修改', ordering: 0},
                     {field: 'click_num', label: '点击量', ordering: 0},
                     {field: 'favor_num', label: '收藏量', ordering: 0},
                     {field: 'comment_num', label: '评论量', ordering: 0},
@@ -107,7 +116,8 @@
             },
             changeLimit() {
                 this.tagsLimit = this.tagsCount;
-                this.getBlogTags(this.tagsLimit, 0)
+                this.getBlogTags(this.tagsLimit, 0);
+                this.showMore = false;
             },
             getArticles(queryParams) {
                 apiQuery('get', 'articles', queryParams).then((response) => {

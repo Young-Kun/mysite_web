@@ -1,6 +1,6 @@
 <template>
     <Row :gutter="12" v-if="article" type="flex">
-        <BackTop></BackTop>
+        <BackTop :height="1"></BackTop>
         <i-col :span="18">
             <Card style="height: 100%">
                 <div>

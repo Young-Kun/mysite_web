@@ -26,8 +26,9 @@
                     评论：
                     <Badge :count="article.comment_num" style="margin-right: 12px"></Badge>
                 </li>
-                <li class="info pub-date">
+                <li class="info">
                     {{ article.user.nickname }} 发表于 {{ article.add_time.split('T')[0] }}
+                    <i class="pub-date">修改于 {{ article.modify_time.split('T')[0] }}</i>
                 </li>
             </ul>
         </div>
@@ -49,7 +50,10 @@
                 this.$emit('tag-click', tag)
             },
             gotoArticleDetail() {
-                this.$router.push({name: 'blog-detail', params: {articleId: this.article.id, categoryId: this.article.category.id}})
+                this.$router.push({
+                    name: 'blog-detail',
+                    params: {articleId: this.article.id, categoryId: this.article.category.id}
+                })
             }
         }
     }
