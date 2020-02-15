@@ -161,6 +161,7 @@
             showAllArticles() {
                 this.filterParams.category = null;
                 this.filterParams.tags = null;
+                this.activeCategory = 'all';
                 this.getArticles(this.filterParams);
             },
             handlePagination(page) {
