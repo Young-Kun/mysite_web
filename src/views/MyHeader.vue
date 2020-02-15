@@ -16,17 +16,22 @@
         </div>
         <Menu mode="horizontal" theme="light" style="padding: 0 24px">
             <!--注册按钮-->
-            <a type="text" @click.prevent="showRegisterModal=true">注册</a>
-            <Modal v-model="showRegisterModal" footer-hide :mask-closable="false" style="text-align: center">
-                <register style="width: 60%" @goto-login="gotoLogin"></register>
+            <a type="text" @click.prevent="handleShowRegisterModal">注册</a>
+            <Modal v-model="showRegisterModal"
+                   footer-hide
+                   :mask-closable="false"
+                   style="text-align: center"
+                   @on-visible-change="handleRegisterFocus">
+                <register ref="registerComponent" style="width: 60%" @goto-login="gotoLogin"></register>
             </Modal>
             <Divider type="vertical"></Divider>
             <!--登录按钮-->
-            <a type="text" @click.prevent="showLoginModal=true">登录</a>
+            <a type="text" @click.prevent="handleShowLoginModal">登录</a>
             <Modal v-model="showLoginModal"
                    footer-hide
                    :mask-closable="false"
-                   style="text-align: center">
+                   style="text-align: center"
+                   @on-visible-change="handleLoginFocus">
                 <login ref="loginComponent" style="width: 60%" @goto-register="gotoRegister"></login>
             </Modal>
         </Menu>
@@ -95,6 +100,26 @@
                 this.showRegisterModal = false;
                 this.showLoginModal = true;
             },
+            handleShowLoginModal() {
+                this.showLoginModal = true;
+            },
+            handleShowRegisterModal() {
+                this.showRegisterModal = true;
+            },
+            handleLoginFocus(isShow) {
+                if (isShow) {
+                    this.$nextTick(() => {
+                        this.$refs.loginComponent.focusUser();
+                    })
+                }
+            },
+            handleRegisterFocus(isShow) {
+                if (isShow) {
+                    this.$nextTick(() => {
+                        this.$refs.registerComponent.focusUser();
+                    })
+                }
+            }
         }
     }
 </script>

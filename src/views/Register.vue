@@ -6,7 +6,8 @@
                      type="text"
                      clearable
                      v-model="loginFormModel.account"
-                     placeholder="手机号/邮箱">
+                     placeholder="手机号/邮箱"
+                     ref="registerUserInput">
             </i-input>
         </FormItem>
         <FormItem prop="verifyCode">
@@ -137,6 +138,9 @@
                     window.clearTimeout(t1);
                     window.clearTimeout(t2);
                 }, 1000 * this.defaultWaitTime);
+            },
+            focusUser() {
+                this.$refs.registerUserInput.focus()
             }
         }
     }
