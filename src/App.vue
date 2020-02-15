@@ -35,4 +35,8 @@
         overflow: initial;
         min-height: 100vh;
     }
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
 </style>

@@ -1,9 +1,9 @@
 <template>
-    <Row :gutter="12" v-if="article">
-        <BackTop :height="1"></BackTop>
+    <Row :gutter="12" v-if="article" type="flex">
+        <BackTop></BackTop>
         <i-col :span="18">
-            <Card>
-                <div style="min-height: calc(100vh - 205px)">
+            <Card style="height: 100%">
+                <div>
                     <h1>{{ article.title }}</h1>
                     <pre>{{ article.add_time.split('T')[0] }}</pre>
                     <hr style="margin: 8px 0">
@@ -30,8 +30,13 @@
             </Card>
             <Card style="margin-top: 8px" dis-hover>
                 <p slot="title">
-                    <Icon type="ios-film-outline"></Icon>
-                    相似文章推荐
+                    文章推荐
+                </p>
+                <p slot="extra">
+                    <Tag class="param" v-for="item in queryParams" :key="item.id" checkable color="primary" :checked="item.isChecked"
+                         @on-change="getRelatedArticles(item.param)">
+                        {{ item.title }}
+                    </Tag>
                 </p>
                 <ul style="list-style: none">
                     <li v-for="item in relatedArticleList" :key="item.id">
@@ -59,7 +64,11 @@
         data() {
             return {
                 article: null,
-                relatedArticleList: []
+                relatedArticleList: [],
+                queryParams: [
+                    {id: 1, param: 'sameCategory', title: '同类别', isChecked: true},
+                    {id: 2, param: 'sameUser', title: '同作者', isChecked: false},
+                ]
             }
         },
         methods: {
@@ -74,8 +83,10 @@
                 apiQuery('get', 'articles', queryParams).then((response) => {
                     let data = response.data.results;
                     let idx = null;
-                    for(let i = 0; i < data.length; i++) {
-                        if(data[i].id === this.article.id) { idx = i }
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[i].id === this.article.id) {
+                            idx = i
+                        }
                     }
                     data.splice(idx, 1);
                     this.relatedArticleList = data
@@ -83,14 +94,27 @@
                     console.log(error.response);
                 })
             },
+            getRelatedArticles(param) {
+                this.queryParams.forEach(function (item) {
+                        item.isChecked = item.param === param;
+                    });
+                if (param === 'sameUser') {
+                    this.getArticles({user: this.article.user.id})
+                }
+                if (param === 'sameCategory') {
+                    this.getArticles({category: this.article.category.id})
+                }
+            }
         },
         mounted() {
             this.getArticleDetail();
-            this.getArticles({category: this.categoryId} );
+            this.getArticles({category: this.categoryId});
         }
     }
 </script>
 
 <style scoped>
-
+    .param {
+        cursor: pointer;
+    }
 </style>
