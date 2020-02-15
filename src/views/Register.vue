@@ -2,23 +2,31 @@
     <Form ref="loginForm" :model="loginFormModel" :rules="loginFormRule" style="margin: auto">
         <Divider>用户注册</Divider>
         <FormItem prop="account">
-            <i-input prefix="ios-person"
+            <i-input prefix="ios-mail"
                      type="text"
                      clearable
-                     maxlength="150"
                      v-model="loginFormModel.account"
                      placeholder="手机号/邮箱">
             </i-input>
         </FormItem>
         <FormItem prop="verifyCode">
-            <i-input prefix="ios-key"
-                     type="text"
+            <i-input type="text"
                      v-model="loginFormModel.verifyCode"
                      placeholder="验证码">
+                <Icon type="md-key" slot="prepend"></Icon>
                 <Button class="verify-code-send" slot="append" :loading="loading" @click="handleSendVerifyCode">
                     <span v-show="!loading">发送验证码</span>
                     <span v-show="loading">{{ waitTime }}秒后可重发</span>
                 </Button>
+            </i-input>
+        </FormItem>
+        <FormItem prop="username">
+            <i-input prefix="ios-person"
+                     type="text"
+                     clearable
+                     maxlength="150"
+                     v-model="loginFormModel.username"
+                     placeholder="用户名">
             </i-input>
         </FormItem>
         <FormItem prop="password">
@@ -66,6 +74,9 @@
                     callback()
                 }
             };
+            const usernameValidator = (rule, value, callback) => {
+                callback()
+            };
             const passwordValidator = (rule, value, callback) => {
                 if (this.loginFormModel.password2 !== '') {
                     this.$refs.loginForm.validateField('password2')
@@ -80,11 +91,12 @@
             };
             return {
                 loading: false,
-                defaultWaitTime: 60,
+                defaultWaitTime: 30,
                 waitTime: 0,
                 loginFormModel: {
                     account: '',
                     verifyCode: '',
+                    username: '',
                     password: '',
                     password2: ''
                 },
@@ -95,6 +107,10 @@
                     ],
                     verifyCode: [
                         {required: true, message: '请输入验证码', trigger: 'blur'},
+                    ],
+                    username: [
+                        {required: true, message: '密码不能为空', trigger: 'blur'},
+                        {validator: usernameValidator, trigger: 'blur'}
                     ],
                     password: [
                         {required: true, message: '密码不能为空', trigger: 'blur'},
@@ -129,5 +145,8 @@
 <style scoped>
     .verify-code-send:focus {
         box-shadow: none;
+    }
+    .verify-code-send {
+        width: 8rem;
     }
 </style>
