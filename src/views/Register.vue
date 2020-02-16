@@ -199,19 +199,7 @@
             focusUser() {
                 this.$refs.registerUserInput.focus()
             },
-            // 回车键提交表单事件
-            submitRegisterForm(e) {
-                if (e.keyCode === 13) {
-                    this.handleRegisterFormSubmit('registerForm');
-                }
-            }
         },
-        // mounted() {
-        //     this.$refs.registerForm.addEventListener('keydown', this.submitRegisterForm);
-        // },
-        // beforeDestroy() {
-        //     document.removeEventListener('keydown', this.submitRegisterForm);
-        // }
     }
 </script>
 

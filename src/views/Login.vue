@@ -91,19 +91,7 @@
                     }
                 })
             },
-            // // 回车键提交表单事件
-            // submitLoginForm(e) {
-            //     if (e.keyCode === 13) {
-            //         this.handleLoginFormSubmit('loginForm');
-            //     }
-            // }
         },
-        // mounted() {
-        //     document.addEventListener('keydown', this.submitLoginForm);
-        // },
-        // beforeDestroy() {
-        //     document.removeEventListener('keydown', this.submitLoginForm);
-        // }
     }
 </script>
 
