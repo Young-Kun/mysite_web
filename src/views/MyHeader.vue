@@ -38,7 +38,7 @@
             </Modal>
         </Menu>
         <!--用户菜单-->
-        <Dropdown v-if="userName" placement="bottom-end" id="user" @on-click="handleUserMenuClick">
+        <Dropdown v-if="userName" placement="bottom-end" id="user" @on-click="handleUserMenuClick" style="margin-right: 24px">
             <div class="avatar">
                 <img src="@/assets/avatar.jpg" width="36px" height="36px" alt="">
                 <span>{{ userName }}</span>
