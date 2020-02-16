@@ -30,32 +30,33 @@
             </Card>
         </i-col>
         <i-col span="6">
-            <Card style="margin-bottom: 8px;">
-                <Button @click="showAllArticles">显示所有文章</Button>
-            </Card>
-            <Card style="margin-bottom: 8px;">
-                <Button type="primary">写博客</Button>
-            </Card>
-            <Card style="margin-bottom: 8px;">
-                <p slot="title">
-                    <Icon type="ios-pricetags-outline"></Icon>
-                    博客标签
-                </p>
-                <Button style="margin: 3px 1px" shape="circle" @click="handleSelectTags('all')">所有标签</Button>
-                <Button size="small" style="margin: 3px 1px" shape="circle" v-for="item  in blogTags" :key="item.id"
-                        @click="handleSelectTags(item)">
-                    {{ item.name }}
-                </Button>
-                <Tooltip placement="bottom">
-                    <div slot="content">
-                        <small>更多标签</small>
-                    </div>
-                    <Button shape="circle" icon="ios-more" size="small" style="margin: 3px 1px"
-                            @click="changeLimit" v-show="showMore">
-
+            <div style="position: fixed; top: 100px; width: 20%">
+                <Card style="margin-bottom: 8px;">
+                    <Button @click="showAllArticles">显示所有文章</Button>
+                </Card>
+                <Card style="margin-bottom: 8px;">
+                    <Button type="primary">写博客</Button>
+                </Card>
+                <Card style="margin-bottom: 8px;">
+                    <p slot="title">
+                        <Icon type="ios-pricetags-outline"></Icon>
+                        博客标签
+                    </p>
+                    <Button style="margin: 3px 1px" shape="circle" @click="handleSelectTags('all')">所有标签</Button>
+                    <Button size="small" style="margin: 3px 1px" shape="circle" v-for="item  in blogTags" :key="item.id"
+                            @click="handleSelectTags(item)">
+                        {{ item.name }}
                     </Button>
-                </Tooltip>
-            </Card>
+                    <Tooltip placement="bottom">
+                        <div slot="content">
+                            <small>更多标签</small>
+                        </div>
+                        <Button shape="circle" icon="ios-more" size="small" style="margin: 3px 1px"
+                                @click="changeLimit" v-show="showMore">
+                        </Button>
+                    </Tooltip>
+                </Card>
+            </div>
         </i-col>
     </Row>
 </template>
