@@ -32,12 +32,12 @@
                 <p slot="title">
                     文章推荐
                 </p>
-                <p slot="extra">
-                    <Tag class="param" v-for="item in queryParams" :key="item.id" checkable color="primary" :checked="item.isChecked"
-                         @on-change="getRelatedArticles(item.param)">
-                        {{ item.title }}
-                    </Tag>
-                </p>
+                <div slot="extra">
+                    <RadioGroup type="button" size="small" value="同类别" @on-change="getRelatedArticles">
+                        <Radio label="同类别" style="padding: 0 3px"></Radio>
+                        <Radio label="同作者" style="padding: 0 3px"></Radio>
+                    </RadioGroup>
+                </div>
                 <ul style="list-style: none">
                     <li v-for="item in relatedArticleList" :key="item.id">
                         <article-simple-card :article="item"></article-simple-card>
@@ -65,10 +65,6 @@
             return {
                 article: null,
                 relatedArticleList: [],
-                queryParams: [
-                    {id: 1, param: 'sameCategory', title: '同类别', isChecked: true},
-                    {id: 2, param: 'sameUser', title: '同作者', isChecked: false},
-                ]
             }
         },
         methods: {
@@ -94,14 +90,11 @@
                     console.log(error.response);
                 })
             },
-            getRelatedArticles(param) {
-                this.queryParams.forEach(function (item) {
-                        item.isChecked = item.param === param;
-                    });
-                if (param === 'sameUser') {
+            getRelatedArticles(name) {
+                if (name === '同作者') {
                     this.getArticles({user: this.article.user.id})
                 }
-                if (param === 'sameCategory') {
+                if (name === '同类别') {
                     this.getArticles({category: this.article.category.id})
                 }
             }
@@ -114,7 +107,15 @@
 </script>
 
 <style scoped>
-    .param {
-        cursor: pointer;
+    .ivu-radio-default {
+        border: none!important;
+    }
+    .ivu-radio-checked {
+        border: none!important;
+    }
+    .ivu-radio-wrapper-checked {
+        border: none;
+        background: #2d8cf0;
+        color: #fff;
     }
 </style>
