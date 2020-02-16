@@ -1,18 +1,18 @@
 <template>
-    <Form ref="loginForm" :model="loginFormModel" :rules="loginFormRule" style="margin: auto">
+    <Form ref="registerForm" :model="registerFormModel" :rules="registerFormRule" style="margin: auto">
         <Divider>用户注册</Divider>
         <FormItem prop="account">
             <i-input prefix="ios-mail"
                      type="text"
                      clearable
-                     v-model="loginFormModel.account"
+                     v-model="registerFormModel.account"
                      placeholder="手机号/邮箱"
                      ref="registerUserInput">
             </i-input>
         </FormItem>
         <FormItem prop="verifyCode">
             <i-input type="text"
-                     v-model="loginFormModel.verifyCode"
+                     v-model="registerFormModel.verifyCode"
                      placeholder="验证码">
                 <Icon type="md-key" slot="prepend"></Icon>
                 <Button class="verify-code-send" slot="append" :loading="loading" @click="handleSendVerifyCode">
@@ -26,7 +26,7 @@
                      type="text"
                      clearable
                      maxlength="150"
-                     v-model="loginFormModel.username"
+                     v-model="registerFormModel.username"
                      placeholder="用户名">
             </i-input>
         </FormItem>
@@ -34,7 +34,7 @@
             <i-input prefix="ios-lock"
                      type="password"
                      password
-                     v-model="loginFormModel.password"
+                     v-model="registerFormModel.password"
                      placeholder="密码">
             </i-input>
         </FormItem>
@@ -42,12 +42,12 @@
             <i-input prefix="ios-lock"
                      type="password"
                      password
-                     v-model="loginFormModel.password2"
+                     v-model="registerFormModel.password2"
                      placeholder="确认密码">
             </i-input>
         </FormItem>
         <FormItem>
-            <Button type="primary" long>注册</Button>
+            <Button type="primary" long @click="submitRegisterForm">注册</Button>
         </FormItem>
         <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
             <span>已有账号？去<a @click.prevent="$emit('goto-login')">登录</a></span>
@@ -57,15 +57,16 @@
 </template>
 
 <script>
+
     export default {
-        name: "Login",
+        name: "Register",
         data() {
             return {
                 passwordMinLength: 3,
                 loading: false,
                 defaultWaitTime: 30,
                 waitTime: 0,
-                loginFormModel: {
+                registerFormModel: {
                     account: '',
                     verifyCode: '',
                     username: '',
@@ -75,7 +76,7 @@
             }
         },
         computed: {
-            loginFormRule() {
+            registerFormRule() {
                 const accountValidator = (rule, value, callback) => {
                     if (value.indexOf('@') > -1) {
                         if (!(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/).test(value)) {
@@ -95,13 +96,13 @@
                     callback()
                 };
                 const passwordValidator = (rule, value, callback) => {
-                    if (this.loginFormModel.password2 !== '') {
-                        this.$refs.loginForm.validateField('password2')
+                    if (this.registerFormModel.password2 !== '') {
+                        this.$refs.registerForm.validateField('password2')
                     }
                     callback()
                 };
                 const password2Validator = (rule, value, callback) => {
-                    if (value !== this.loginFormModel.password) {
+                    if (value !== this.registerFormModel.password) {
                         callback(new Error('两次输入的密码不一致'))
                     }
                     callback()
@@ -137,23 +138,28 @@
         },
         methods: {
             handleSendVerifyCode() {
-                this.loading = true;
-                this.waitTime = this.defaultWaitTime;
-                let t1 = setInterval(() => {
-                    this.waitTime -= 1;
-                }, 1000);
-                let t2 = setTimeout(() => {
-                    this.loading = false;
+                this.$refs.registerForm.validateField('account', (errors) => {
+                    if (errors) {
+                        return this.$Message.error(errors);
+                    }
+                    this.loading = true;
                     this.waitTime = this.defaultWaitTime;
-                    window.clearTimeout(t1);
-                    window.clearTimeout(t2);
-                }, 1000 * this.defaultWaitTime);
+                    let t1 = setInterval(() => {
+                        this.waitTime -= 1;
+                    }, 1000);
+                    let t2 = setTimeout(() => {
+                        this.loading = false;
+                        this.waitTime = this.defaultWaitTime;
+                        window.clearTimeout(t1);
+                        window.clearTimeout(t2);
+                    }, 1000 * this.defaultWaitTime);
+                });
             },
             focusUser() {
                 this.$refs.registerUserInput.focus()
             },
             submitRegisterForm() {
-
+                // alert(1)
             }
         },
         mounted() {
