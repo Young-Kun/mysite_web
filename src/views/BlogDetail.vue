@@ -76,7 +76,7 @@
                 apiQuery('get', 'articles/' + this.articleId).then((response) => {
                     this.article = response.data;
                 }).catch((error) => {
-                    console.log(error.response);
+                    console.log(error);
                 })
             },
             getArticles(queryParams) {

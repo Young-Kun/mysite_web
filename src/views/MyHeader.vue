@@ -22,7 +22,8 @@
                    :mask-closable="false"
                    style="text-align: center"
                    @on-visible-change="handleFocus('registerComponent', $event)">
-                <register ref="registerComponent" style="width: 60%" @goto-login="gotoLogin"></register>
+                <register ref="registerComponent" style="width: 60%" @goto-login="gotoLogin"
+                          @register-success="handleRegisterSuccess"></register>
             </Modal>
             <Divider type="vertical"></Divider>
             <!--登录按钮-->
@@ -123,6 +124,10 @@
             handleLoginSuccess() {
                 this.$Message.success('登录成功！');
                 this.showLoginModal = false;
+            },
+            handleRegisterSuccess() {
+                this.$Message.success('注册成功！');
+                this.showRegisterModal = false;
             },
             handleUserMenuClick(name) {
                 if (name === 'logout') {

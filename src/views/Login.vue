@@ -83,7 +83,7 @@
                             this.setInfo();
                             this.$emit('login-success');
                         }).catch((error) => {
-                            console.log(error.response);
+                            console.log(error);
                             this.$Message.error('用户名或密码错误！')
                         });
                     } else {

@@ -47,7 +47,7 @@
             </i-input>
         </FormItem>
         <FormItem>
-            <Button type="primary" long @click="submitRegisterForm">注册</Button>
+            <Button type="primary" long @click="handleSubmit('registerForm')">注册</Button>
         </FormItem>
         <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
             <span>已有账号？去<a @click.prevent="$emit('goto-login')">登录</a></span>
@@ -58,6 +58,8 @@
 
 <script>
     import {apiQuery} from "@/api/api";
+    import cookie from "@/store/cookie";
+    import {mapActions} from "vuex";
 
     export default {
         name: "Register",
@@ -138,6 +140,7 @@
             }
         },
         methods: {
+            ...mapActions(['setInfo']),
             handleSendVerifyCode() {
                 this.$refs.registerForm.validateField('account', (errors) => {
                     if (errors) {
@@ -148,9 +151,8 @@
                     apiQuery('post', 'verify-codes', null, {
                         account: account,
                         account_type: account_type
-                    }).then((response) => {
-                        console.log(response.data);
-
+                    }).then(() => {
+                        this.$Message.success('验证码发送成功，5分钟内有效');
                         this.loading = true;
                         this.waitTime = this.defaultWaitTime;
                         let t1 = setInterval(() => {
@@ -163,16 +165,45 @@
                             window.clearTimeout(t2);
                         }, 1000 * this.defaultWaitTime);
                     }).catch((error) => {
-                        console.log(error.response);
+                        console.log(error);
                         this.$Message.error(Object.values(error.response.data)[0][0])
                     });
                 });
             },
+            handleSubmit(name) {
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        let account = this.registerFormModel.account;
+                        let account_type = account.indexOf('@') > -1 ? 'email' : 'mobile';
+                        apiQuery('post', 'register', null, {
+                            account_type: account_type,
+                            account: account,
+                            code: this.registerFormModel.verifyCode,
+                            username: this.registerFormModel.username,
+                            password: this.registerFormModel.password
+                        }).then((response) => {
+                            cookie.setCookie('username', response.data.username);
+                            cookie.setCookie('userid', response.data.userid);
+                            cookie.setCookie('token', response.data.token);
+                            this.setInfo();
+                            this.$emit('register-success');
+                        }).catch((error) => {
+                            console.log(error);
+                            this.$Message.error(Object.values(error.response.data)[0][0])
+                        });
+                    } else {
+                        this.$Message.error('数据填写有误，请检查')
+                    }
+                })
+            },
             focusUser() {
                 this.$refs.registerUserInput.focus()
             },
-            submitRegisterForm() {
-                // alert(1)
+            // 回车键提交表单事件
+            submitRegisterForm(e) {
+                if (e.keyCode === 13) {
+                    this.handleSubmit('registerForm');
+                }
             }
         },
         mounted() {

@@ -102,7 +102,7 @@
                 apiQuery('get', 'blog-categories').then((response) => {
                     this.blogCategories = response.data;
                 }).catch((error) => {
-                    console.log(error.response);
+                    console.log(error);
                 })
             },
             getBlogTags(tagsLimit, tagsOffset) {
@@ -111,7 +111,7 @@
                     this.tagsCount = response.data.count;
                     this.blogTags = response.data.results;
                 }).catch((error) => {
-                    console.log(error.response);
+                    console.log(error);
                 })
             },
             changeLimit() {
@@ -124,7 +124,7 @@
                     this.articles = response.data.results;
                     this.articlesCount = response.data.count;
                 }).catch((error) => {
-                    console.log(error.response);
+                    console.log(error);
                 })
             },
             handleSelectCategory(category) {
