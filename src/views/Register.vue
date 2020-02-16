@@ -100,6 +100,12 @@
                     }
                 };
                 const usernameValidator = (rule, value, callback) => {
+                    if (!(/^[A-Za-z0-9_]+$/).test(value)) {
+                        callback(new Error('用户名只能由数字、字母、下划线组成'))
+                    }
+                    if (!(/^[A-Za-z]+[A-Za-z0-9_]*$/).test(value)) {
+                        callback(new Error('用户名必须以字母开头'))
+                    }
                     callback()
                 };
                 const passwordValidator = (rule, value, callback) => {
