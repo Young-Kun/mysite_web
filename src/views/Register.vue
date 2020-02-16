@@ -151,7 +151,16 @@
             },
             focusUser() {
                 this.$refs.registerUserInput.focus()
+            },
+            submitRegisterForm() {
+
             }
+        },
+        mounted() {
+            document.addEventListener('keydown', this.submitRegisterForm);
+        },
+        beforeDestroy() {
+            document.removeEventListener('keydown', this.submitRegisterForm);
         }
     }
 </script>

@@ -92,17 +92,17 @@
                 })
             },
             // 回车键提交表单事件
-            submitForm(e) {
+            submitLoginForm(e) {
                 if (e.keyCode === 13) {
                     this.handleSubmit('loginForm');
                 }
             }
         },
         mounted() {
-            document.addEventListener('keydown', this.submitForm);
+            document.addEventListener('keydown', this.submitLoginForm);
         },
         beforeDestroy() {
-            document.removeEventListener('keydown', this.submitForm);
+            document.removeEventListener('keydown', this.submitLoginForm);
         }
     }
 </script>
