@@ -4,7 +4,7 @@
           :rules="registerFormRule"
           style="margin: auto"
           @keydown.enter.native="handleRegisterFormSubmit('registerForm')">
-        <Divider>用户注册</Divider>
+        <Divider style="margin-bottom: 24px">用户注册</Divider>
         <FormItem prop="account">
             <i-input prefix="ios-mail"
                      type="text"

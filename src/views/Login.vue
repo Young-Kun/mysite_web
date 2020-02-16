@@ -4,7 +4,7 @@
           :rules="loginFormRule"
           style="margin: auto"
           @keydown.enter.native="handleLoginFormSubmit('loginForm')">
-        <Divider>用户登录</Divider>
+        <Divider style="margin-bottom: 24px">用户登录</Divider>
         <FormItem prop="account" autofocus>
             <i-input prefix="ios-person"
                      type="text"
@@ -22,6 +22,9 @@
                      v-model="loginFormModel.password"
                      placeholder="密码">
             </i-input>
+        </FormItem>
+        <FormItem style="float: left; margin-bottom: 0">
+            <Checkbox v-model="loginFormModel.rememberMe">记住我10天</Checkbox>
         </FormItem>
         <FormItem>
             <Button type="primary" long @click="handleLoginFormSubmit('loginForm')">登录</Button>
@@ -45,7 +48,8 @@
                 passwordMinLength: 3,
                 loginFormModel: {
                     account: '',
-                    password: ''
+                    password: '',
+                    rememberMe: true
                 },
             }
         },
@@ -79,8 +83,9 @@
                             username: this.loginFormModel.account,
                             password: this.loginFormModel.password
                         }).then((response) => {
-                            cookie.setCookie('username', this.loginFormModel.account);
-                            cookie.setCookie('token', response.data.token);
+                            let expiresDays = this.loginFormModel.rememberMe ? 10 : null;
+                            cookie.setCookie('username', this.loginFormModel.account, expiresDays);
+                            cookie.setCookie('token', response.data.token, expiresDays);
                             this.setInfo();
                             this.$emit('login-success');
                         }).catch((error) => {
