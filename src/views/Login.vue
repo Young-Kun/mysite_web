@@ -23,7 +23,7 @@
             </i-input>
         </FormItem>
         <FormItem>
-            <Button type="primary" long @click="handleSubmit('loginForm')">登录</Button>
+            <Button type="primary" long @click="handleLoginFormSubmit('loginForm')">登录</Button>
         </FormItem>
         <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
             <span>还没有账号？去<a @click.prevent="$emit('goto-register')">注册</a></span>
@@ -71,7 +71,7 @@
                 this.$refs.loginUserInput.focus()
             },
             ...mapActions(['setInfo']),
-            handleSubmit(name) {
+            handleLoginFormSubmit(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         apiQuery('post', 'jwt-token-auth', null, {
@@ -87,23 +87,23 @@
                             this.$Message.error('用户名或密码错误！')
                         });
                     } else {
-                        this.$Message.error('数据填写有误，请检查')
+                        this.$Message.error('数据填写有误！')
                     }
                 })
             },
-            // 回车键提交表单事件
-            submitLoginForm(e) {
-                if (e.keyCode === 13) {
-                    this.handleSubmit('loginForm');
-                }
-            }
+            // // 回车键提交表单事件
+            // submitLoginForm(e) {
+            //     if (e.keyCode === 13) {
+            //         this.handleLoginFormSubmit('loginForm');
+            //     }
+            // }
         },
-        mounted() {
-            document.addEventListener('keydown', this.submitLoginForm);
-        },
-        beforeDestroy() {
-            document.removeEventListener('keydown', this.submitLoginForm);
-        }
+        // mounted() {
+        //     document.addEventListener('keydown', this.submitLoginForm);
+        // },
+        // beforeDestroy() {
+        //     document.removeEventListener('keydown', this.submitLoginForm);
+        // }
     }
 </script>
 

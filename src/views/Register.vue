@@ -47,7 +47,7 @@
             </i-input>
         </FormItem>
         <FormItem>
-            <Button type="primary" long @click="handleSubmit('registerForm')">注册</Button>
+            <Button type="primary" long @click="handleRegisterFormSubmit('registerForm')">注册</Button>
         </FormItem>
         <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
             <span>已有账号？去<a @click.prevent="$emit('goto-login')">登录</a></span>
@@ -170,7 +170,7 @@
                     });
                 });
             },
-            handleSubmit(name) {
+            handleRegisterFormSubmit(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         let account = this.registerFormModel.account;
@@ -202,7 +202,7 @@
             // 回车键提交表单事件
             submitRegisterForm(e) {
                 if (e.keyCode === 13) {
-                    this.handleSubmit('registerForm');
+                    this.handleRegisterFormSubmit('registerForm');
                 }
             }
         },
