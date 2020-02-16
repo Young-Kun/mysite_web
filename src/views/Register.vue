@@ -206,12 +206,12 @@
                 }
             }
         },
-        mounted() {
-            document.addEventListener('keydown', this.submitRegisterForm);
-        },
-        beforeDestroy() {
-            document.removeEventListener('keydown', this.submitRegisterForm);
-        }
+        // mounted() {
+        //     this.$refs.registerForm.addEventListener('keydown', this.submitRegisterForm);
+        // },
+        // beforeDestroy() {
+        //     document.removeEventListener('keydown', this.submitRegisterForm);
+        // }
     }
 </script>
 
