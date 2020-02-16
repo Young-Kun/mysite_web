@@ -70,6 +70,7 @@
         data() {
             return {
                 passwordMinLength: 3,
+                usernameMinLength: 3,
                 loading: false,
                 defaultWaitTime: 30,
                 waitTime: 0,
@@ -86,7 +87,7 @@
             registerFormRule() {
                 const accountValidator = (rule, value, callback) => {
                     if (value.indexOf('@') > -1 || !(/^[0-9]+$/).test(value)) {
-                        if (!(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/).test(value)) {
+                        if (!(/^[*#\u4e00-\u9fa5 a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/).test(value)) {
                             callback(new Error('邮箱格式不正确'))
                         }
                         callback()
@@ -129,8 +130,14 @@
                         {required: true, message: '请输入验证码', trigger: 'change'},
                     ],
                     username: [
-                        {required: true, message: '密码不能为空', trigger: 'change'},
-                        {validator: usernameValidator, trigger: 'change'}
+                        {required: true, message: '用户名不能为空', trigger: 'change'},
+                        {validator: usernameValidator, trigger: 'change'},
+                        {
+                            type: 'string',
+                            min: this.usernameMinLength,
+                            message: '用户名不能低于' + this.usernameMinLength + '位',
+                            trigger: 'change'
+                        },
                     ],
                     password: [
                         {required: true, message: '密码不能为空', trigger: 'change'},
