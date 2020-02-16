@@ -57,6 +57,7 @@
 </template>
 
 <script>
+    import {apiQuery} from "@/api/api";
 
     export default {
         name: "Register",
@@ -142,6 +143,14 @@
                     if (errors) {
                         return this.$Message.error(errors);
                     }
+                    let account = this.registerFormModel.account;
+                    let account_type = account.indexOf('@') > -1 ? 'email' : 'mobile';
+                    apiQuery('post', 'verify-codes', null, {account: account, account_type: account_type}).then(
+
+                    ).catch((error) => {
+                        console.log(error.response);
+                        this.$Message.error('用户名或密码错误！')
+                    });
                     this.loading = true;
                     this.waitTime = this.defaultWaitTime;
                     let t1 = setInterval(() => {
