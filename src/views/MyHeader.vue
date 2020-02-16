@@ -130,6 +130,7 @@
                     cookie.delCookie('userid');
                     cookie.delCookie('token');
                     this.setInfo();
+                    this.$Message.success('退出成功')
                 }
             }
         }

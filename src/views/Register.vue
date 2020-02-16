@@ -150,6 +150,7 @@
                         account_type: account_type
                     }).then((response) => {
                         console.log(response.data);
+
                         this.loading = true;
                         this.waitTime = this.defaultWaitTime;
                         let t1 = setInterval(() => {
