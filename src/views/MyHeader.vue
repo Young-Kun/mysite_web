@@ -43,9 +43,9 @@
                 <img src="@/assets/avatar.jpg" width="36px" height="36px" alt="">
                 <span>{{ userName }}</span>
             </div>
-            <DropdownMenu slot="list">
+            <DropdownMenu slot="list" class="user-menu">
                 <DropdownItem name="change-password">修改密码</DropdownItem>
-                <DropdownItem name="logout">退出</DropdownItem>
+                <DropdownItem name="logout"><Icon type="ios-log-out" /><span>退出</span></DropdownItem>
             </DropdownMenu>
         </Dropdown>
     </Header>
@@ -198,5 +198,8 @@
         background: #f8f8f9;
     }
 
+    .user-menu i {
+        margin-right: 6px;
+    }
 
 </style>
