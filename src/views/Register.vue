@@ -145,23 +145,26 @@
                     }
                     let account = this.registerFormModel.account;
                     let account_type = account.indexOf('@') > -1 ? 'email' : 'mobile';
-                    apiQuery('post', 'verify-codes', null, {account: account, account_type: account_type}).then(
-
-                    ).catch((error) => {
-                        console.log(error.response);
-                        this.$Message.error('用户名或密码错误！')
-                    });
-                    this.loading = true;
-                    this.waitTime = this.defaultWaitTime;
-                    let t1 = setInterval(() => {
-                        this.waitTime -= 1;
-                    }, 1000);
-                    let t2 = setTimeout(() => {
-                        this.loading = false;
+                    apiQuery('post', 'verify-codes', null, {
+                        account: account,
+                        account_type: account_type
+                    }).then((response) => {
+                        console.log(response.data);
+                        this.loading = true;
                         this.waitTime = this.defaultWaitTime;
-                        window.clearTimeout(t1);
-                        window.clearTimeout(t2);
-                    }, 1000 * this.defaultWaitTime);
+                        let t1 = setInterval(() => {
+                            this.waitTime -= 1;
+                        }, 1000);
+                        let t2 = setTimeout(() => {
+                            this.loading = false;
+                            this.waitTime = this.defaultWaitTime;
+                            window.clearTimeout(t1);
+                            window.clearTimeout(t2);
+                        }, 1000 * this.defaultWaitTime);
+                    }).catch((error) => {
+                        console.log(error.response);
+                        this.$Message.error(Object.values(error.response.data)[0][0])
+                    });
                 });
             },
             focusUser() {
