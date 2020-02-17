@@ -4,13 +4,22 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 const routes = [
-    {path: '/blogs', name: 'blogs', component: () => import("@/views/BlogList")},
+    {
+        path: '/blogs',
+        name: 'blogs',
+        component: () => import("@/views/BlogList")
+    },
     {
         path: '/blog/article:articleId/category:categoryId',
         name: 'blog-detail',
         props: true,
         component: () => import("@/views/BlogDetail")
-    }
+    },
+    {
+        path: '/blog/create',
+        name: 'blog-create',
+        component: () => import("@/views/BlogCreate")
+    },
 ];
 
 const router = new VueRouter({

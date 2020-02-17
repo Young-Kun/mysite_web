@@ -35,7 +35,7 @@
                     <Button @click="showAllArticles">显示所有文章</Button>
                 </Card>
                 <Card style="margin-bottom: 8px;">
-                    <Button type="primary">写博客</Button>
+                    <Button type="primary" @click="handleCreateBlog">写博客</Button>
                 </Card>
                 <Card style="margin-bottom: 8px;">
                     <p slot="title">
@@ -172,6 +172,9 @@
             handlePageSizeChange(pageSize) {
                 this.filterParams.page_size = pageSize;
                 this.getArticles(this.filterParams);
+            },
+            handleCreateBlog() {
+                this.$router.push({name: 'blog-create'})
             }
         },
         mounted() {
