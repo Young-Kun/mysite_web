@@ -154,6 +154,7 @@
         },
         mounted() {
             this.getArticles(this.filterParams);
+            console.log(this.blogTags);
         }
     }
 </script>

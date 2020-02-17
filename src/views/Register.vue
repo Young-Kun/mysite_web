@@ -221,13 +221,7 @@
                             username: this.registerFormModel.username,
                             password: this.registerFormModel.password
                         }).then(() => {
-                            this.registerFormModel = {
-                                account: '',
-                                verifyCode: '',
-                                username: '',
-                                password: '',
-                                password2: ''
-                            };
+                            this.$refs.registerForm.resetFields();
                             this.closeRegister();
                             this.$nextTick(() => {
                                 this.showLogin();

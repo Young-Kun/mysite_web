@@ -10,6 +10,6 @@ export const apiQuery = (method, url, params, data) => {
         method: method,
         url: `${host}` + '/' + url + '/',
         params: params,
-        data: data
+        data: data,
     })
 };
