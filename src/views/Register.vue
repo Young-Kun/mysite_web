@@ -171,7 +171,6 @@
             ]),
             handleFocus() {
                 this.$nextTick(() => {
-                    console.log('regi');
                     this.$refs.registerUserInput.focus();
                 });
             },
@@ -222,7 +221,17 @@
                             username: this.registerFormModel.username,
                             password: this.registerFormModel.password
                         }).then(() => {
-                            this.showLogin();
+                            this.registerFormModel = {
+                                account: '',
+                                verifyCode: '',
+                                username: '',
+                                password: '',
+                                password2: ''
+                            };
+                            this.closeRegister();
+                            this.$nextTick(() => {
+                                this.showLogin();
+                            });
                             this.$Message.success('注册成功，请登录！')
                         }).catch((error) => {
                             console.log(error);

@@ -78,7 +78,6 @@
             ]),
             handleFocus() {
                 this.$nextTick(() => {
-                    console.log('login');
                     this.$refs.loginUserInput.focus();
                 });
             },
