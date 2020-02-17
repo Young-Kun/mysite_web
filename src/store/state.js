@@ -11,7 +11,13 @@ const modalState = {
     registerIsShow: false,
 };
 
+const blogCategories = [];
+
+const blogTags = [];
+
 export default {
     userInfo,
     modalState,
+    blogCategories,
+    blogTags,
 };

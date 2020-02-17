@@ -6,7 +6,17 @@ const token = (state) => {
     return state.userInfo.token
 };
 
+const blogCategories = (state) => {
+    return state.blogCategories
+};
+
+const blogTags = (state) => {
+    return state.blogTags
+};
+
 export default {
     userName,
-    token
+    token,
+    blogCategories,
+    blogTags,
 }

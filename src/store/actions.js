@@ -9,6 +9,8 @@ const showLogin = makeAction(types.SHOW_LOGIN);
 const closeLogin = makeAction(types.CLOSE_LOGIN);
 const showRegister = makeAction(types.SHOW_REGISTER);
 const closeRegister = makeAction(types.CLOSE_REGISTER);
+const addBlogCategory = makeAction(types.ADD_BLOG_CATEGORIES);
+const addBlogTag = makeAction(types.ADD_BLOG_TAGS);
 
 
 export default {
@@ -17,4 +19,6 @@ export default {
     closeLogin,
     showRegister,
     closeRegister,
+    addBlogCategory,
+    addBlogTag,
 }

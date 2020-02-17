@@ -51,9 +51,6 @@
                         <div slot="content">
                             <small>更多标签</small>
                         </div>
-                        <Button shape="circle" icon="ios-more" size="small" style="margin: 3px 1px"
-                                @click="changeLimit" v-show="showMore">
-                        </Button>
                     </Tooltip>
                 </Card>
             </div>
@@ -64,6 +61,7 @@
 <script>
     import {apiQuery} from "@/api/api";
     import ArticleCard from "@/components/ArticleCard";
+    import {mapGetters} from 'vuex';
 
     export default {
         name: "BlogList",
@@ -72,10 +70,7 @@
         },
         data() {
             return {
-                showMore: true,
                 activeCategory: '',
-                blogCategories: [],
-                blogTags: [],
                 tagsLimit: 5,
                 tagsCount: 0,
                 articles: [],
@@ -98,28 +93,13 @@
                 ]
             }
         },
+        computed: {
+            ...mapGetters([
+                'blogCategories',
+                'blogTags',
+            ])
+        },
         methods: {
-            getBlogCategories() {
-                apiQuery('get', 'blog-categories').then((response) => {
-                    this.blogCategories = response.data;
-                }).catch((error) => {
-                    console.log(error);
-                })
-            },
-            getBlogTags(tagsLimit, tagsOffset) {
-                apiQuery('get', 'blog-tags', {limit: tagsLimit, offset: tagsOffset}).then((response) => {
-                    // this.blogTags = response.data.results;
-                    this.tagsCount = response.data.count;
-                    this.blogTags = response.data.results;
-                }).catch((error) => {
-                    console.log(error);
-                })
-            },
-            changeLimit() {
-                this.tagsLimit = this.tagsCount;
-                this.getBlogTags(this.tagsLimit, 0);
-                this.showMore = false;
-            },
             getArticles(queryParams) {
                 apiQuery('get', 'articles', queryParams).then((response) => {
                     this.articles = response.data.results;
@@ -178,8 +158,6 @@
             }
         },
         mounted() {
-            this.getBlogCategories();
-            this.getBlogTags(this.tagsLimit, 0);
             this.getArticles(this.filterParams);
         }
     }

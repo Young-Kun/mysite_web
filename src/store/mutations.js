@@ -27,4 +27,10 @@ export default {
     [types.CLOSE_REGISTER](state) {
         state.modalState.registerIsShow = false;
     },
+    [types.ADD_BLOG_CATEGORIES](state, blog_category) {
+        state.blogCategories.push(blog_category);
+    },
+    [types.ADD_BLOG_TAGS](state, blog_tag) {
+        state.blogTags.push(blog_tag);
+    }
 }
