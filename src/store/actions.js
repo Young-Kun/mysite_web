@@ -5,7 +5,11 @@ function makeAction(type) {
 }
 
 const setInfo = makeAction(types.SET_INFO);
+const showLogin = makeAction(types.SHOW_LOGIN);
+const showRegister = makeAction(types.SHOW_REGISTER);
 
 export default {
-    setInfo
+    setInfo,
+    showLogin,
+    showRegister,
 }

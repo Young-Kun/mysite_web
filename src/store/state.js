@@ -6,6 +6,12 @@ const userInfo = {
     token: cookie.getCookie('token') || ''
 };
 
+const modalState = {
+    loginIsShow: false,
+    registerIsShow: false,
+};
+
 export default {
-    userInfo
+    userInfo,
+    modalState,
 };

@@ -14,5 +14,13 @@ export default {
             token: cookie.getCookie('token')
         };
         console.log('Mutations: ', state.userInfo)
+    },
+    [types.SHOW_LOGIN](state) {
+        state.modalState.loginIsShow = true;
+        state.modalState.registerIsShow = false;
+    },
+    [types.SHOW_REGISTER](state) {
+        state.modalState.loginIsShow = false;
+        state.modalState.registerIsShow = true;
     }
 }
