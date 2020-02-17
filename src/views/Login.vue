@@ -48,34 +48,25 @@
         name: "Login",
         data() {
             return {
-                passwordMinLength: 3,
                 loginFormModel: {
                     account: '',
                     password: '',
                     rememberMe: true
                 },
+                loginFormRule: {
+                    account: [
+                        {required: true, message: '用户名/手机/邮箱 不能为空', trigger: 'change'},
+                    ],
+                    password: [
+                        {required: true, message: '密码不能为空', trigger: 'change'},
+                    ]
+                }
             }
         },
         computed: {
             ...mapState([
                 'modalState',
             ]),
-            loginFormRule() {
-                return {
-                    account: [
-                        {required: true, message: '用户名/手机/邮箱 不能为空', trigger: 'change'}
-                    ],
-                    password: [
-                        {required: true, message: '密码不能为空', trigger: 'change'},
-                        {
-                            type: 'string',
-                            min: this.passwordMinLength,
-                            message: '密码不能低于' + this.passwordMinLength + '位',
-                            trigger: 'change'
-                        },
-                    ]
-                }
-            }
         },
         methods: {
             ...mapActions(['setInfo']),
