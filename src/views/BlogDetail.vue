@@ -69,7 +69,7 @@
         },
         methods: {
             getArticleDetail() {
-                apiQuery('get', 'articles/' + this.articleId).then((response) => {
+                apiQuery('get', 'article/detail/' + this.articleId).then((response) => {
                     this.article = response.data;
                 }).catch((error) => {
                     console.log(error);

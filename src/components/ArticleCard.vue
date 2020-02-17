@@ -3,9 +3,9 @@
         <div class="wrapper">
             <img :src="article.cover" alt="" class="cover-img" @click="gotoArticleDetail">
             <ul class="text-wrapper">
-                <Button style="border: none; padding: 0" @click="gotoArticleDetail">
+                <a style="color: #101117" @click.prevent="gotoArticleDetail">
                     <h2>{{ article.title }}</h2>
-                </Button>
+                </a>
                 <li class="brief">{{ article.brief }}</li>
                 <li class="info">分类：
                     <Button type="error" shape="circle" size="small" @click="handleClickCategory">
@@ -64,6 +64,7 @@
         height: 170px;
         width: 250px;
         cursor: pointer;
+        flex: none;
     }
 
     .cover-img:hover {

@@ -30,7 +30,7 @@
             </Card>
         </i-col>
         <i-col span="6">
-            <div style="position: fixed; top: 100px; width: 20%">
+            <div>
                 <Card style="margin-bottom: 8px;">
                     <Button @click="showAllArticles">显示所有文章</Button>
                 </Card>
