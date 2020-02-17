@@ -17,13 +17,11 @@ export default {
     },
     [types.SHOW_LOGIN](state) {
         state.modalState.loginIsShow = true;
-        state.modalState.registerIsShow = false;
     },
     [types.CLOSE_LOGIN](state) {
         state.modalState.loginIsShow = false;
     },
     [types.SHOW_REGISTER](state) {
-        state.modalState.loginIsShow = false;
         state.modalState.registerIsShow = true;
     },
     [types.CLOSE_REGISTER](state) {

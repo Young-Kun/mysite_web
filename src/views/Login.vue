@@ -78,11 +78,15 @@
             ]),
             handleFocus() {
                 this.$nextTick(() => {
+                    console.log('login');
                     this.$refs.loginUserInput.focus();
                 });
             },
             gotoRegister() {
-                this.showRegister();
+                this.closeLogin();
+                this.$nextTick(() => {
+                    this.showRegister();
+                });
             },
             handleLoginFormSubmit() {
                 this.$refs.loginForm.validate((valid) => {

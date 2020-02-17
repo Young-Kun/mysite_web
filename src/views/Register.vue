@@ -171,11 +171,15 @@
             ]),
             handleFocus() {
                 this.$nextTick(() => {
+                    console.log('regi');
                     this.$refs.registerUserInput.focus();
                 });
             },
             gotoLogin() {
-                this.showLogin();
+                this.closeRegister();
+                this.$nextTick(() => {
+                    this.showLogin();
+                });
             },
             handleSendVerifyCode() {
                 this.$refs.registerForm.validateField('account', (errors) => {
