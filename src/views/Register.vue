@@ -131,35 +131,35 @@
                 };
                 return {
                     account: [
-                        {required: true, message: '手机/邮箱 不能为空', trigger: 'change'},
-                        {validator: accountValidator, trigger: 'change'}
+                        {required: true, message: '手机/邮箱 不能为空', trigger: 'blur'},
+                        {validator: accountValidator, trigger: 'blur'}
                     ],
                     verifyCode: [
-                        {required: true, message: '请输入验证码', trigger: 'change'},
+                        {required: true, message: '请输入验证码', trigger: 'blur'},
                     ],
                     username: [
-                        {required: true, message: '用户名不能为空', trigger: 'change'},
-                        {validator: usernameValidator, trigger: 'change'},
+                        {required: true, message: '用户名不能为空', trigger: 'blur'},
+                        {validator: usernameValidator, trigger: 'blur'},
                         {
                             type: 'string',
                             min: this.usernameMinLength,
                             message: '用户名不能低于' + this.usernameMinLength + '位',
-                            trigger: 'change'
+                            trigger: 'blur'
                         },
                     ],
                     password: [
-                        {required: true, message: '密码不能为空', trigger: 'change'},
+                        {required: true, message: '密码不能为空', trigger: 'blur'},
                         {
                             type: 'string',
                             min: this.passwordMinLength,
                             message: '密码不能低于' + this.passwordMinLength + '位',
-                            trigger: 'change'
+                            trigger: 'blur'
                         },
-                        {validator: passwordValidator, trigger: 'change'}
+                        {validator: passwordValidator, trigger: 'blur'}
                     ],
                     password2: [
-                        {required: true, message: '请再次输入你的密码', trigger: 'change'},
-                        {validator: password2Validator, trigger: 'change'}
+                        {required: true, message: '请再次输入你的密码', trigger: 'blur'},
+                        {validator: password2Validator, trigger: 'blur'}
                     ]
                 }
             }

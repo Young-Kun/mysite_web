@@ -57,10 +57,10 @@
                 },
                 loginFormRule: {
                     account: [
-                        {required: true, message: '用户名/手机/邮箱 不能为空', trigger: 'change'},
+                        {required: true, message: '用户名/手机/邮箱 不能为空', trigger: 'blur'},
                     ],
                     password: [
-                        {required: true, message: '密码不能为空', trigger: 'change'},
+                        {required: true, message: '密码不能为空', trigger: 'blur'},
                     ]
                 }
             }
