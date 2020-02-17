@@ -47,11 +47,6 @@
                             @click="handleSelectTags(item)">
                         {{ item.name }}
                     </Button>
-                    <Tooltip placement="bottom">
-                        <div slot="content">
-                            <small>更多标签</small>
-                        </div>
-                    </Tooltip>
                 </Card>
             </div>
         </i-col>
