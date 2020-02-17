@@ -181,6 +181,17 @@
                 });
             },
             handleSendVerifyCode() {
+                this.loading = true;
+                this.waitTime = this.defaultWaitTime;
+                let t1 = setInterval(() => {
+                    this.waitTime -= 1;
+                }, 1000);
+                let t2 = setTimeout(() => {
+                    this.loading = false;
+                    this.waitTime = this.defaultWaitTime;
+                    window.clearTimeout(t1);
+                    window.clearTimeout(t2);
+                }, 1000 * this.defaultWaitTime);
                 this.$refs.registerForm.validateField('account', (errors) => {
                     if (errors) {
                         return this.$Message.error(errors);
@@ -192,17 +203,6 @@
                         account_type: account_type
                     }).then(() => {
                         this.$Message.success('验证码发送成功，5分钟内有效');
-                        this.loading = true;
-                        this.waitTime = this.defaultWaitTime;
-                        let t1 = setInterval(() => {
-                            this.waitTime -= 1;
-                        }, 1000);
-                        let t2 = setTimeout(() => {
-                            this.loading = false;
-                            this.waitTime = this.defaultWaitTime;
-                            window.clearTimeout(t1);
-                            window.clearTimeout(t2);
-                        }, 1000 * this.defaultWaitTime);
                     }).catch((error) => {
                         console.log(error);
                         this.$Message.error(Object.values(error.response.data)[0][0])
