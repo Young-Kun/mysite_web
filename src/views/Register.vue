@@ -2,11 +2,12 @@
     <Modal v-model="modalState.registerIsShow"
            footer-hide
            :mask-closable="false"
-           style="text-align: center">
+           width="360px"
+           @on-visible-change="handleFocus">
         <Form ref="registerForm"
               :model="registerFormModel"
               :rules="registerFormRule"
-              style="margin: auto">
+              @keydown.enter.native="handleRegisterFormSubmit">
             <Divider style="margin-bottom: 24px">用户注册</Divider>
             <FormItem prop="account">
                 <i-input prefix="ios-mail"
@@ -57,7 +58,7 @@
                 <Button type="primary" long @click="handleRegisterFormSubmit">注册</Button>
             </FormItem>
             <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
-                <span>已有账号？去<a>登录</a></span>
+                <span>已有账号？去<a @click.prevent="gotoLogin">登录</a></span>
                 <span style="margin-left: auto"><a>忘记密码</a></span>
             </div>
         </Form>
@@ -67,7 +68,6 @@
 
 <script>
     import {apiQuery} from "@/api/api";
-    import cookie from "@/store/cookie";
     import {mapActions, mapState} from "vuex";
 
     export default {
@@ -165,7 +165,18 @@
             }
         },
         methods: {
-            ...mapActions(['setInfo']),
+            ...mapActions([
+                'closeRegister',
+                'showLogin',
+            ]),
+            handleFocus() {
+                this.$nextTick(() => {
+                    this.$refs.registerUserInput.focus();
+                });
+            },
+            gotoLogin() {
+                this.showLogin();
+            },
             handleSendVerifyCode() {
                 this.$refs.registerForm.validateField('account', (errors) => {
                     if (errors) {
@@ -195,8 +206,8 @@
                     });
                 });
             },
-            handleRegisterFormSubmit(name) {
-                this.$refs[name].validate((valid) => {
+            handleRegisterFormSubmit() {
+                this.$refs.registerForm.validate((valid) => {
                     if (valid) {
                         let account = this.registerFormModel.account;
                         let account_type = account.indexOf('@') > -1 ? 'email' : 'mobile';
@@ -206,12 +217,9 @@
                             code: this.registerFormModel.verifyCode,
                             username: this.registerFormModel.username,
                             password: this.registerFormModel.password
-                        }).then((response) => {
-                            cookie.setCookie('username', response.data.username);
-                            cookie.setCookie('userid', response.data.userid);
-                            cookie.setCookie('token', response.data.token);
-                            this.setInfo();
-                            this.$emit('register-success');
+                        }).then(() => {
+                            this.showLogin();
+                            this.$Message.success('注册成功，请登录！')
                         }).catch((error) => {
                             console.log(error);
                             this.$Message.error(Object.values(error.response.data)[0][0])
@@ -220,9 +228,6 @@
                         this.$Message.error('数据填写有误，请检查')
                     }
                 })
-            },
-            focusUser() {
-                this.$refs.registerUserInput.focus()
             },
         },
     }

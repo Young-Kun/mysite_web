@@ -9,7 +9,7 @@
               :rules="loginFormRule"
               @keydown.enter.native="handleLoginFormSubmit">
             <Divider style="margin-bottom: 24px">用户登录</Divider>
-            <FormItem prop="account" autofocus>
+            <FormItem prop="account">
                 <i-input prefix="ios-person"
                          type="text"
                          clearable
@@ -74,7 +74,7 @@
             ...mapActions([
                 'setInfo',
                 'closeLogin',
-                'showRegister'
+                'showRegister',
             ]),
             handleFocus() {
                 this.$nextTick(() => {
