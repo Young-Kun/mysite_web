@@ -14,7 +14,7 @@
                 </Submenu>
             </div>
             <div v-else>
-                <MenuItem :name="menu.name">
+                <MenuItem :name="menu.name" :to="menu.to">
                     <Icon :type="menu.icon"></Icon>
                     <span>{{ menu.span }}</span>
                 </MenuItem>

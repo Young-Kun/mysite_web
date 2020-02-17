@@ -55,7 +55,8 @@
                         id: 1,
                         name: 'guide',
                         icon: 'ios-book',
-                        span: '指南'
+                        span: '写博客',
+                        to: {name: 'blog-create'}
                     },
                     {
                         id: 2,
