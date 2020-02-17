@@ -1,63 +1,70 @@
 <template>
-    <Form ref="registerForm"
-          :model="registerFormModel"
-          :rules="registerFormRule"
-          style="margin: auto"
-          @keydown.enter.native="handleRegisterFormSubmit('registerForm')">
-        <Divider style="margin-bottom: 24px">用户注册</Divider>
-        <FormItem prop="account">
-            <i-input prefix="ios-mail"
-                     type="text"
-                     clearable
-                     v-model="registerFormModel.account"
-                     placeholder="手机号/邮箱"
-                     ref="registerUserInput">
-            </i-input>
-        </FormItem>
-        <FormItem prop="verifyCode">
-            <i-input type="text"
-                     v-model="registerFormModel.verifyCode"
-                     placeholder="验证码">
-                <Icon type="md-key" slot="prepend"></Icon>
-                <Button class="verify-code-send" slot="append" :loading="loading" @click="handleSendVerifyCode">
-                    <span v-show="!loading">发送验证码</span>
-                    <span v-show="loading">{{ waitTime }}秒后可重发</span>
-                </Button>
-            </i-input>
-        </FormItem>
-        <FormItem prop="username">
-            <i-input prefix="ios-person"
-                     type="text"
-                     clearable
-                     maxlength="150"
-                     v-model="registerFormModel.username"
-                     placeholder="用户名">
-            </i-input>
-        </FormItem>
-        <FormItem prop="password">
-            <i-input prefix="ios-lock"
-                     type="password"
-                     password
-                     v-model="registerFormModel.password"
-                     placeholder="密码">
-            </i-input>
-        </FormItem>
-        <FormItem prop="password2">
-            <i-input prefix="ios-lock"
-                     type="password"
-                     password
-                     v-model="registerFormModel.password2"
-                     placeholder="确认密码">
-            </i-input>
-        </FormItem>
-        <FormItem>
-            <Button type="primary" long @click="handleRegisterFormSubmit('registerForm')">注册</Button>
-        </FormItem>
-        <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
-            <span>已有账号？去<a @click.prevent="$emit('goto-login')">登录</a></span>
-            <span style="margin-left: auto"><a>忘记密码</a></span>
-        </div>
-    </Form>
+    <Modal v-model="showRegisterModal"
+           footer-hide
+           :mask-closable="false"
+           style="text-align: center"
+           @on-visible-change="handleFocus('registerComponent', $event)">
+        <Form ref="registerForm"
+              :model="registerFormModel"
+              :rules="registerFormRule"
+              style="margin: auto"
+              @keydown.enter.native="handleRegisterFormSubmit('registerForm')">
+            <Divider style="margin-bottom: 24px">用户注册</Divider>
+            <FormItem prop="account">
+                <i-input prefix="ios-mail"
+                         type="text"
+                         clearable
+                         v-model="registerFormModel.account"
+                         placeholder="手机号/邮箱"
+                         ref="registerUserInput">
+                </i-input>
+            </FormItem>
+            <FormItem prop="verifyCode">
+                <i-input type="text"
+                         v-model="registerFormModel.verifyCode"
+                         placeholder="验证码">
+                    <Icon type="md-key" slot="prepend"></Icon>
+                    <Button class="verify-code-send" slot="append" :loading="loading" @click="handleSendVerifyCode">
+                        <span v-show="!loading">发送验证码</span>
+                        <span v-show="loading">{{ waitTime }}秒后可重发</span>
+                    </Button>
+                </i-input>
+            </FormItem>
+            <FormItem prop="username">
+                <i-input prefix="ios-person"
+                         type="text"
+                         clearable
+                         maxlength="150"
+                         v-model="registerFormModel.username"
+                         placeholder="用户名">
+                </i-input>
+            </FormItem>
+            <FormItem prop="password">
+                <i-input prefix="ios-lock"
+                         type="password"
+                         password
+                         v-model="registerFormModel.password"
+                         placeholder="密码">
+                </i-input>
+            </FormItem>
+            <FormItem prop="password2">
+                <i-input prefix="ios-lock"
+                         type="password"
+                         password
+                         v-model="registerFormModel.password2"
+                         placeholder="确认密码">
+                </i-input>
+            </FormItem>
+            <FormItem>
+                <Button type="primary" long @click="handleRegisterFormSubmit('registerForm')">注册</Button>
+            </FormItem>
+            <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
+                <span>已有账号？去<a @click.prevent="$emit('goto-login')">登录</a></span>
+                <span style="margin-left: auto"><a>忘记密码</a></span>
+            </div>
+        </Form>
+    </Modal>
+
 </template>
 
 <script>

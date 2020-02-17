@@ -16,36 +16,23 @@
         </div>
         <Menu v-if="!userName" mode="horizontal" theme="light" style="padding: 0 24px">
             <!--注册按钮-->
-            <a type="text" @click.prevent="handleShowRegisterModal">注册</a>
-            <Modal v-model="showRegisterModal"
-                   footer-hide
-                   :mask-closable="false"
-                   style="text-align: center"
-                   @on-visible-change="handleFocus('registerComponent', $event)">
-                <register ref="registerComponent" style="width: 60%" @goto-login="gotoLogin"
-                          @register-success="handleRegisterSuccess"></register>
-            </Modal>
+            <a @click.prevent="handleShowRegisterModal">注册</a>
             <Divider type="vertical"></Divider>
             <!--登录按钮-->
-            <a type="text" @click.prevent="handleShowLoginModal">登录</a>
-            <Modal v-model="showLoginModal"
-                   footer-hide
-                   :mask-closable="false"
-                   style="text-align: center"
-                   @on-visible-change="handleFocus('loginComponent', $event)">
-                <login ref="loginComponent" style="width: 60%" @goto-register="gotoRegister"
-                       @login-success="handleLoginSuccess"></login>
-            </Modal>
+            <a @click.prevent="handleShowLoginModal">登录</a>
         </Menu>
         <!--用户菜单-->
-        <Dropdown v-if="userName" placement="bottom-end" id="user" @on-click="handleUserMenuClick" style="margin-right: 24px">
+        <Dropdown v-if="userName" placement="bottom-end" id="user" @on-click="handleUserMenuClick"
+                  style="margin-right: 24px">
             <div class="avatar">
                 <img src="@/assets/avatar.jpg" width="36px" height="36px" alt="">
                 <span>{{ userName }}</span>
             </div>
             <DropdownMenu slot="list" class="user-menu">
                 <DropdownItem name="change-password">修改密码</DropdownItem>
-                <DropdownItem name="logout"><Icon type="ios-log-out" /><span>退出</span></DropdownItem>
+                <DropdownItem name="logout">
+                    <Icon type="ios-log-out"/>
+                    <span>退出</span></DropdownItem>
             </DropdownMenu>
         </Dropdown>
     </Header>
@@ -53,16 +40,12 @@
 
 <script>
     import DataBasedMenuItems from "@/components/DataBasedMenuItems";
-    import Login from "@/views/Login";
-    import Register from "@/views/Register";
     import cookie from "@/store/cookie";
     import {mapGetters, mapActions} from 'vuex';
 
     export default {
         name: "MyHeader",
         components: {
-            Register,
-            Login,
             DataBasedMenuItems
         },
         data() {
@@ -100,34 +83,11 @@
         },
         methods: {
             ...mapActions(['setInfo']),
-            gotoRegister() {
-                this.showLoginModal = false;
-                this.showRegisterModal = true;
-            },
-            gotoLogin() {
-                this.showRegisterModal = false;
-                this.showLoginModal = true;
-            },
             handleShowLoginModal() {
                 this.showLoginModal = true;
             },
             handleShowRegisterModal() {
                 this.showRegisterModal = true;
-            },
-            handleFocus(name, isShow) {
-                if (isShow) {
-                    this.$nextTick(() => {
-                        this.$refs[name].focusUser();
-                    })
-                }
-            },
-            handleLoginSuccess() {
-                this.$Message.success('登录成功！');
-                this.showLoginModal = false;
-            },
-            handleRegisterSuccess() {
-                this.$Message.success('注册成功！');
-                this.showRegisterModal = false;
             },
             handleUserMenuClick(name) {
                 if (name === 'logout') {
