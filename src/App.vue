@@ -8,7 +8,8 @@
                 <my-footer />
             </Layout>
         </Layout>
-
+        <login></login>
+        <register></register>
     </div>
 </template>
 
@@ -17,12 +18,15 @@
     import MyHeader from "@/views/MyHeader";
     import MyContent from "@/views/MyContent";
     import MyFooter from "@/views/MyFooter";
+    import Login from "@/views/Login";
+    import Register from "@/views/Register";
 
     export default {
         name: 'app',
         components: {
+            Register,
+            Login,
             MySider,
-            // MySider,
             MyHeader,
             MyContent,
             MyFooter

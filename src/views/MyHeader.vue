@@ -50,8 +50,6 @@
         },
         data() {
             return {
-                showRegisterModal: false,
-                showLoginModal: false,
                 topMenuList: [
                     {
                         id: 1,
@@ -79,15 +77,21 @@
             }
         },
         computed: {
-            ...mapGetters(['userName']),
+            ...mapGetters([
+                'userName',
+            ]),
         },
         methods: {
-            ...mapActions(['setInfo']),
+            ...mapActions([
+                'setInfo',
+                'showLogin',
+                'showRegister',
+            ]),
             handleShowLoginModal() {
-                this.showLoginModal = true;
+                this.showLogin();
             },
             handleShowRegisterModal() {
-                this.showRegisterModal = true;
+                this.showRegister();
             },
             handleUserMenuClick(name) {
                 if (name === 'logout') {
