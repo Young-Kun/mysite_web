@@ -27,7 +27,7 @@
                          placeholder="密码">
                 </i-input>
             </FormItem>
-            <FormItem style="text-align: left; margin-bottom: 0">
+            <FormItem style="margin-bottom: 0">
                 <Checkbox v-model="loginFormModel.rememberMe">记住我10天</Checkbox>
             </FormItem>
             <FormItem>
