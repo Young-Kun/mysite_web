@@ -34,7 +34,7 @@
                 <Button type="primary" long @click="handleLoginFormSubmit">登录</Button>
             </FormItem>
             <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
-                <span>还没有账号？去<a>注册</a></span>
+                <span>还没有账号？去<a @click.prevent="gotoRegister">注册</a></span>
                 <span style="margin-left: auto"><a>忘记密码</a></span>
             </div>
         </Form>
@@ -73,12 +73,16 @@
         methods: {
             ...mapActions([
                 'setInfo',
-                'closeLogin'
+                'closeLogin',
+                'showRegister'
             ]),
             handleFocus() {
                 this.$nextTick(() => {
                     this.$refs.loginUserInput.focus();
                 });
+            },
+            gotoRegister() {
+                this.showRegister();
             },
             handleLoginFormSubmit() {
                 this.$refs.loginForm.validate((valid) => {
