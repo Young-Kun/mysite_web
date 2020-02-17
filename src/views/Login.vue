@@ -2,10 +2,12 @@
     <Modal v-model="modalState.loginIsShow"
            footer-hide
            :mask-closable="false"
-           style="text-align: center">
+           width="360px"
+           @on-visible-change="handleFocus">
         <Form ref="loginForm"
               :model="loginFormModel"
-              :rules="loginFormRule">
+              :rules="loginFormRule"
+              @keydown.enter.native="handleLoginFormSubmit">
             <Divider style="margin-bottom: 24px">用户登录</Divider>
             <FormItem prop="account" autofocus>
                 <i-input prefix="ios-person"
@@ -69,9 +71,17 @@
             ]),
         },
         methods: {
-            ...mapActions(['setInfo']),
-            handleLoginFormSubmit(name) {
-                this.$refs[name].validate((valid) => {
+            ...mapActions([
+                'setInfo',
+                'closeLogin'
+            ]),
+            handleFocus() {
+                this.$nextTick(() => {
+                    this.$refs.loginUserInput.focus();
+                });
+            },
+            handleLoginFormSubmit() {
+                this.$refs.loginForm.validate((valid) => {
                     if (valid) {
                         apiQuery('post', 'jwt-token-auth', null, {
                             username: this.loginFormModel.account,
@@ -81,7 +91,8 @@
                             cookie.setCookie('username', this.loginFormModel.account, expiresDays);
                             cookie.setCookie('token', response.data.token, expiresDays);
                             this.setInfo();
-                            this.$emit('login-success');
+                            this.closeLogin();
+                            this.$Message.success('登录成功！')
                         }).catch((error) => {
                             console.log(error);
                             this.$Message.error('用户名或密码错误！')
