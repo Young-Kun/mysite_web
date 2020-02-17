@@ -1,14 +1,12 @@
 <template>
-    <Modal v-model="showRegisterModal"
+    <Modal v-model="modalState.registerIsShow"
            footer-hide
            :mask-closable="false"
-           style="text-align: center"
-           @on-visible-change="handleFocus('registerComponent', $event)">
+           style="text-align: center">
         <Form ref="registerForm"
               :model="registerFormModel"
               :rules="registerFormRule"
-              style="margin: auto"
-              @keydown.enter.native="handleRegisterFormSubmit('registerForm')">
+              style="margin: auto">
             <Divider style="margin-bottom: 24px">用户注册</Divider>
             <FormItem prop="account">
                 <i-input prefix="ios-mail"
@@ -56,10 +54,10 @@
                 </i-input>
             </FormItem>
             <FormItem>
-                <Button type="primary" long @click="handleRegisterFormSubmit('registerForm')">注册</Button>
+                <Button type="primary" long @click="handleRegisterFormSubmit">注册</Button>
             </FormItem>
             <div style="display: flex; margin-top: -15px; margin-bottom: 24px">
-                <span>已有账号？去<a @click.prevent="$emit('goto-login')">登录</a></span>
+                <span>已有账号？去<a>登录</a></span>
                 <span style="margin-left: auto"><a>忘记密码</a></span>
             </div>
         </Form>
@@ -70,7 +68,7 @@
 <script>
     import {apiQuery} from "@/api/api";
     import cookie from "@/store/cookie";
-    import {mapActions} from "vuex";
+    import {mapActions, mapState} from "vuex";
 
     export default {
         name: "Register",
@@ -91,6 +89,9 @@
             }
         },
         computed: {
+            ...mapState([
+                'modalState',
+            ]),
             registerFormRule() {
                 const accountValidator = (rule, value, callback) => {
                     if (value.indexOf('@') > -1 || !(/^[0-9]+$/).test(value)) {
