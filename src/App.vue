@@ -38,7 +38,7 @@
                 'addBlogTag',
             ])
         },
-        beforeCreate() {
+        mounted() {
             this.$api.blog.blogCategories().then((res) => {
                 res.data.forEach((category) => {
                     this.addBlogCategory(category);

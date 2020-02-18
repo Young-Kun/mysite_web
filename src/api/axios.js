@@ -40,7 +40,7 @@ instance.interceptors.request.use(
         token && (config.headers.Authorization = token); // 此处需修改
         return config
     },
-    error => Promise.error(error)
+    error => Promise.reject(error)
 );
 
 // 响应拦截

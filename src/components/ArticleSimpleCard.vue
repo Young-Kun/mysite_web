@@ -3,7 +3,7 @@
         <Card class="article-item" style="margin-bottom: 8px">
         <div style="display: flex">
             <img :src="article.cover" alt="" class="cover-img" style="margin-right: 8px">
-            <h4>{{ blog.title }}</h4>
+            <h4>{{ article.title }}</h4>
         </div>
     </Card>
     </div>

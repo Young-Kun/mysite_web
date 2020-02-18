@@ -39,9 +39,7 @@
 <script>
     export default {
         name: "ArticleCard",
-        props: {
-            article: null
-        },
+        props: ['article'],
         methods: {
             handleClickCategory() {
                 this.$emit('category-click', this.article.category.id.toString())
@@ -52,7 +50,7 @@
             gotoArticleDetail() {
                 this.$router.push({
                     name: 'blog-detail',
-                    params: {articleId: this.article.id, categoryId: this.article.category.id}
+                    params: {articleId: this.article.id}
                 })
             }
         }

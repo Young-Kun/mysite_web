@@ -4,20 +4,20 @@
         <i-col :span="18">
             <Card style="height: 100%">
                 <div>
-                    <h1>{{ blog.title }}</h1>
-                    <pre>{{ blog.add_time.split('T')[0] }}</pre>
+                    <h1>{{ article.title }}</h1>
+                    <pre>{{ article.add_time.split('T')[0] }}</pre>
                     <hr style="margin: 8px 0">
                     <div style="display: flex; align-items: center;">
-                        <span>浏览： {{ blog.click_num }}</span>
+                        <span>浏览： {{ article.click_num }}</span>
                         <Divider type="vertical"></Divider>
-                        <span>收藏： {{ blog.favor_num }}</span>
+                        <span>收藏： {{ article.favor_num }}</span>
                         <Divider type="vertical"></Divider>
-                        <span>评论： {{ blog.comment_num }}</span>
+                        <span>评论： {{ article.comment_num }}</span>
                         <Button type="primary" style="margin-left: auto">收藏</Button>
                         <Button type="primary" style="margin-left: 8px;">分享</Button>
                     </div>
                     <hr style="margin: 8px 0">
-                    <div>{{ blog.content }}</div>
+                    <div>{{ article.content }}</div>
                 </div>
             </Card>
         </i-col>
@@ -25,7 +25,7 @@
             <Card dis-hover>
                 <div style="text-align:center">
                     <img :src="article.user.avatar" alt="" width="100%"/>
-                    <h3>作者：{{ blog.user.nickname }}</h3>
+                    <h3>作者：{{ article.user.nickname }}</h3>
                 </div>
             </Card>
             <Card style="margin-top: 8px" dis-hover>
@@ -39,7 +39,7 @@
                     </RadioGroup>
                 </div>
                 <ul style="list-style: none">
-                    <li v-for="item in relatedArticleList" :key="item.id">
+                    <li v-for="item in relatedArticles" :key="item.id">
                         <article-simple-card :article="item"></article-simple-card>
                     </li>
                 </ul>
@@ -49,7 +49,6 @@
 </template>
 
 <script>
-    import {apiQuery} from "@/api";
     import ArticleSimpleCard from "@/components/ArticleSimpleCard";
 
     export default {
@@ -57,37 +56,40 @@
         components: {
             ArticleSimpleCard
         },
-        props: {
-            articleId: null,
-            categoryId: null
-        },
+        props: [
+            'articleId'
+        ],
         data() {
             return {
                 article: null,
-                relatedArticleList: [],
+                relatedArticles: [],
             }
+        },
+        mounted() {
+            this.getArticleDetail().then(() => this.getRelatedArticles('同类别')).catch((error) => console.log(error));
         },
         methods: {
             getArticleDetail() {
-                apiQuery('get', 'blog/detail/' + this.articleId).then((response) => {
-                    this.article = response.data;
+                return this.$api.blog.blogArticleDetail(this.articleId).then((res) => {
+                    this.article = res.data;
                 }).catch((error) => {
                     console.log(error);
                 })
             },
-            getArticles(queryParams) {
-                apiQuery('get', 'articles', queryParams).then((response) => {
-                    let data = response.data.results;
+            getArticles(params) {
+                this.$api.blog.blogArticles(params).then((res) => {
+                    let data = res.data.results;
                     let idx = null;
                     for (let i = 0; i < data.length; i++) {
                         if (data[i].id === this.article.id) {
-                            idx = i
+                            idx = i;
+                            break;
                         }
                     }
                     data.splice(idx, 1);
-                    this.relatedArticleList = data
+                    this.relatedArticles = data
                 }).catch((error) => {
-                    console.log(error.response);
+                    console.log(error);
                 })
             },
             getRelatedArticles(name) {
@@ -98,21 +100,19 @@
                     this.getArticles({category: this.article.category.id})
                 }
             }
-        },
-        mounted() {
-            this.getArticleDetail();
-            this.getArticles({category: this.categoryId});
         }
     }
 </script>
 
 <style scoped>
     .ivu-radio-default {
-        border: none!important;
+        border: none !important;
     }
+
     .ivu-radio-checked {
-        border: none!important;
+        border: none !important;
     }
+
     .ivu-radio-wrapper-checked {
         border: none;
         background: #2d8cf0;
