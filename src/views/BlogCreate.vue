@@ -3,13 +3,13 @@
         <Card class="content-wrapper">
             <Tabs value="MarkDown" :animated="false">
                 <TabPane label="MarkDown" name="MarkDown">
-                    <mavon-editor style="min-height: calc(100vh - 200px); max-width: 100%" :style="{zIndex}" v-model="editorContent"
+                    <mavon-editor :style="{zIndex}" v-model="editorContent"
                                   placeholder="请开始你的表演..." @change="handleMavonChange" @save="handleMavonSave"
                                   @fullScreen="handleMavonFullScreen">
                     </mavon-editor>
                 </TabPane>
                 <TabPane label="富文本" name="RichText">
-                    <i-input style="min-height: calc(100vh - 200px)" v-model="formValidate.content" type="textarea"
+                    <i-input v-model="formValidate.content" type="textarea"
                              :autosize="{minRows: 10}"
                              placeholder="请输入文章内容(富文本)">
                     </i-input>

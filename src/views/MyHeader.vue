@@ -109,10 +109,12 @@
 
 <style scoped>
     #header {
-        position: sticky;
+        position: fixed;
         top: 0;
-        z-index: 1000;
+        right: 0;
+        width: calc(100% - 200px);
         padding: 0;
+        z-index: 1000;
         box-shadow: 0 0 6px 1px rgba(53, 64, 82, 0.1);
         display: flex;
         flex-flow: row nowrap;

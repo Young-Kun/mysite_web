@@ -59,8 +59,10 @@
 
 <style>
     #inside-wrapper {
-        overflow: initial;
         min-height: 100vh;
+        min-width: 100%;
         max-width: 100%;
+        padding-top: 64px;
+        padding-left: 200px;
     }
 </style>
