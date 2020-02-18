@@ -116,15 +116,15 @@
                             this.formValidate.cover,
                             this.formValidate.content
                         ).then((response) => {
+                            this.$router.push({name: 'blog-detail', params: {articleId: response.data.id}});
                             console.log(response);
-
-                            this.$Message.success('发送成功！')
+                            this.$Message.success('发布成功！(文章如有敏感信息，已被屏蔽)')
                         }).catch((error) => {
                             console.log(error);
-                            this.$Message.error('发送失败！')
+                            this.$Message.error('请先登录！')
                         });
                     } else {
-                        1
+                        this.$Message.error('表单有误，请检查！')
                     }
                 })
             },
