@@ -1,10 +1,5 @@
 import * as types from '@/store/MutationTypes'
 import cookie from "@/store/cookie"
-import Vue from 'vue'
-import axios from "axios";
-
-
-Vue.prototype.$http = axios;
 
 export default {
     [types.SET_INFO](state) {

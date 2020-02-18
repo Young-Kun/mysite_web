@@ -10,7 +10,7 @@ const routes = [
         component: () => import("@/views/BlogList")
     },
     {
-        path: '/blog/article:articleId/category:categoryId',
+        path: '/blog/blog:articleId/category:categoryId',
         name: 'blog-detail',
         props: true,
         component: () => import("@/views/BlogDetail")

@@ -4,12 +4,12 @@
             <img :src="article.cover" alt="" class="cover-img" @click="gotoArticleDetail">
             <ul class="text-wrapper">
                 <a style="color: #101117" @click.prevent="gotoArticleDetail">
-                    <h2>{{ article.title }}</h2>
+                    <h2>{{ blog.title }}</h2>
                 </a>
-                <li class="brief">{{ article.brief }}</li>
+                <li class="brief">{{ blog.brief }}</li>
                 <li class="info">分类：
                     <Button type="error" shape="circle" size="small" @click="handleClickCategory">
-                        {{ article.category.name }}
+                        {{ blog.category.name }}
                     </Button>
                 </li>
                 <li class="info">标签：
@@ -27,8 +27,8 @@
                     <Badge :count="article.comment_num" style="margin-right: 12px"></Badge>
                 </li>
                 <li class="info">
-                    {{ article.user.nickname }} 发表于 {{ article.add_time.split('T')[0] }}
-                    <i class="pub-date">修改于 {{ article.modify_time.split('T')[0] }}</i>
+                    {{ blog.user.nickname }} 发表于 {{ blog.add_time.split('T')[0] }}
+                    <i class="pub-date">修改于 {{ blog.modify_time.split('T')[0] }}</i>
                 </li>
             </ul>
         </div>

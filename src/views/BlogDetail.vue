@@ -4,20 +4,20 @@
         <i-col :span="18">
             <Card style="height: 100%">
                 <div>
-                    <h1>{{ article.title }}</h1>
-                    <pre>{{ article.add_time.split('T')[0] }}</pre>
+                    <h1>{{ blog.title }}</h1>
+                    <pre>{{ blog.add_time.split('T')[0] }}</pre>
                     <hr style="margin: 8px 0">
                     <div style="display: flex; align-items: center;">
-                        <span>浏览： {{ article.click_num }}</span>
+                        <span>浏览： {{ blog.click_num }}</span>
                         <Divider type="vertical"></Divider>
-                        <span>收藏： {{ article.favor_num }}</span>
+                        <span>收藏： {{ blog.favor_num }}</span>
                         <Divider type="vertical"></Divider>
-                        <span>评论： {{ article.comment_num }}</span>
+                        <span>评论： {{ blog.comment_num }}</span>
                         <Button type="primary" style="margin-left: auto">收藏</Button>
                         <Button type="primary" style="margin-left: 8px;">分享</Button>
                     </div>
                     <hr style="margin: 8px 0">
-                    <div>{{ article.content }}</div>
+                    <div>{{ blog.content }}</div>
                 </div>
             </Card>
         </i-col>
@@ -25,7 +25,7 @@
             <Card dis-hover>
                 <div style="text-align:center">
                     <img :src="article.user.avatar" alt="" width="100%"/>
-                    <h3>作者：{{ article.user.nickname }}</h3>
+                    <h3>作者：{{ blog.user.nickname }}</h3>
                 </div>
             </Card>
             <Card style="margin-top: 8px" dis-hover>
@@ -69,7 +69,7 @@
         },
         methods: {
             getArticleDetail() {
-                apiQuery('get', 'article/detail/' + this.articleId).then((response) => {
+                apiQuery('get', 'blog/detail/' + this.articleId).then((response) => {
                     this.article = response.data;
                 }).catch((error) => {
                     console.log(error);

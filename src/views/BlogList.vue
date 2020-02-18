@@ -54,7 +54,6 @@
 </template>
 
 <script>
-    import {apiQuery} from "@/api";
     import ArticleCard from "@/components/ArticleCard";
     import {mapGetters} from 'vuex';
 
@@ -96,12 +95,12 @@
         },
         methods: {
             getArticles(queryParams) {
-                apiQuery('get', 'articles', queryParams).then((response) => {
-                    this.articles = response.data.results;
-                    this.articlesCount = response.data.count;
+                this.$api.blog.blogList(queryParams).then((res) => {
+                    this.articles = res.data.results;
+                    this.articlesCount = res.data.count;
                 }).catch((error) => {
                     console.log(error);
-                })
+                });
             },
             handleSelectCategory(category) {
                 this.filterParams.page = null;

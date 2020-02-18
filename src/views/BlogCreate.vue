@@ -117,7 +117,7 @@
                             cover: this.formValidate.cover ? '' : this.formValidate.cover,
                             content: this.formValidate.content};
                         console.log(data);
-                        apiQuery('post', 'article/create', null, data).then((response) => {
+                        apiQuery('post', 'blog/create', null, data).then((response) => {
                             console.log(response);
                             this.$Message.success('发送成功！')
                         }).catch((error) => {
