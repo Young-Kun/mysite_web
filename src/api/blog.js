@@ -16,11 +16,11 @@ const blog = {
         return axios.get(`${base.sq}/blog-tags`)
     },
     // 文章列表
-    blogList (params) {
+    blogArticles (params) {
         return axios.get(`${base.sq}/articles`, params);
     },
     // 文章详情
-    blogDetail (id) {
+    blogArticleDetail (id) {
         return axios.get(`${base.sq}/article/detail/${id}`);
     },
     // 创建文章
