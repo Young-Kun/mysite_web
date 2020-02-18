@@ -49,7 +49,7 @@
 </template>
 
 <script>
-    import {apiQuery} from "@/api/api";
+    import {apiQuery} from "@/api";
     import ArticleSimpleCard from "@/components/ArticleSimpleCard";
 
     export default {

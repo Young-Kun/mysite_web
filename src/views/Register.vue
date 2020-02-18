@@ -67,7 +67,7 @@
 </template>
 
 <script>
-    import {apiQuery} from "@/api/api";
+    import {apiQuery} from "@/api";
     import {mapActions, mapState} from "vuex";
 
     export default {

@@ -59,7 +59,7 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import {apiQuery} from "@/api/api";
+    import {apiQuery} from "@/api";
 
     export default {
         name: "BlogCreate",

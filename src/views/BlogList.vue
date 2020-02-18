@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import {apiQuery} from "@/api/api";
+    import {apiQuery} from "@/api";
     import ArticleCard from "@/components/ArticleCard";
     import {mapGetters} from 'vuex';
 

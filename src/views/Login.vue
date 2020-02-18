@@ -42,7 +42,7 @@
 </template>
 
 <script>
-    import {apiQuery} from "@/api/api";
+    import {apiQuery} from "@/api";
     import cookie from "@/store/cookie";
     import {mapActions, mapState} from 'vuex';
 

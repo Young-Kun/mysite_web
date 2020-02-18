@@ -21,7 +21,7 @@
     import Login from "@/views/Login";
     import Register from "@/views/Register";
     import {mapActions} from 'vuex';
-    import {apiQuery} from "@/api/api";
+    import {apiQuery} from "@/api";
 
     export default {
         name: 'app',
