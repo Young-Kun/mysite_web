@@ -67,7 +67,6 @@
 </template>
 
 <script>
-    import {apiQuery} from "@/api";
     import {mapActions, mapState} from "vuex";
 
     export default {
@@ -179,8 +178,7 @@
                     this.showLogin();
                 });
             },
-            handleSendVerifyCode() {
-                this.loading = true;
+            handleCountdown() {
                 this.waitTime = this.defaultWaitTime;
                 let t1 = setInterval(() => {
                     this.waitTime -= 1;
@@ -191,21 +189,23 @@
                     window.clearTimeout(t1);
                     window.clearTimeout(t2);
                 }, 1000 * this.defaultWaitTime);
+            },
+            handleSendVerifyCode() {
+                this.loading = true;
                 this.$refs.registerForm.validateField('account', (errors) => {
                     if (errors) {
                         return this.$Message.error(errors);
+                    } else {
+                        let account = this.registerFormModel.account;
+                        let account_type = account.indexOf('@') > -1 ? 'email' : 'mobile';
+                        this.$api.user.sendVerifyCode(account_type, account).then(() => {
+                            this.$Message.success('验证码发送成功，5分钟内有效');
+                            this.handleCountdown();
+                        }).catch((error) => {
+                            console.log(error);
+                            this.$Message.error(Object.values(error.response.data)[0][0])
+                        });
                     }
-                    let account = this.registerFormModel.account;
-                    let account_type = account.indexOf('@') > -1 ? 'email' : 'mobile';
-                    apiQuery('post', 'verify-codes', null, {
-                        account: account,
-                        account_type: account_type
-                    }).then(() => {
-                        this.$Message.success('验证码发送成功，5分钟内有效');
-                    }).catch((error) => {
-                        console.log(error);
-                        this.$Message.error(Object.values(error.response.data)[0][0])
-                    });
                 });
             },
             handleRegisterFormSubmit() {
@@ -213,18 +213,14 @@
                     if (valid) {
                         let account = this.registerFormModel.account;
                         let account_type = account.indexOf('@') > -1 ? 'email' : 'mobile';
-                        apiQuery('post', 'register', null, {
-                            account_type: account_type,
-                            account: account,
-                            code: this.registerFormModel.verifyCode,
-                            username: this.registerFormModel.username,
-                            password: this.registerFormModel.password
-                        }).then(() => {
+                        this.$api.user.register(
+                            account_type,
+                            account,
+                            this.registerFormModel.verifyCode,
+                            this.registerFormModel.username,
+                            this.registerFormModel.password).then(() => {
+                            this.closeRegister().then(() => this.showLogin());
                             this.$refs.registerForm.resetFields();
-                            this.closeRegister();
-                            this.$nextTick(() => {
-                                this.showLogin();
-                            });
                             this.$Message.success('注册成功，请登录！')
                         }).catch((error) => {
                             console.log(error);
