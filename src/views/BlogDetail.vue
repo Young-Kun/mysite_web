@@ -66,7 +66,11 @@
             }
         },
         mounted() {
-            this.getArticleDetail().then(() => this.getRelatedArticles('同类别')).catch((error) => console.log(error));
+            this.getArticleDetail().then(() => {
+                this.getRelatedArticles('同类别');
+            }).catch((error) => {
+                console.log(error)
+            });
         },
         methods: {
             getArticleDetail() {
@@ -77,7 +81,7 @@
                 })
             },
             getArticles(params) {
-                this.$api.blog.blogArticles(params).then((res) => {
+                return this.$api.blog.blogArticles(params).then((res) => {
                     let data = res.data.results;
                     let idx = null;
                     for (let i = 0; i < data.length; i++) {
