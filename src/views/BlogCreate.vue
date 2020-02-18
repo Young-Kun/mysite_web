@@ -78,10 +78,10 @@
                         {required: true, message: '标题不能为空', trigger: 'blur'},
                     ],
                     category: [
-                        {required: true, message: '分类是必填的', trigger: 'change'},
+                        {type: 'number', required: true, message: '分类是必填的', trigger: 'change'},
                     ],
                     tags: [
-                        {required: true, message: '标签是必填的', trigger: 'change'},
+                        {type: 'array', required: true, message: '标签是必填的', trigger: 'change'},
                     ],
                     brief: [
                         {required: true, message: '简介不能为空', trigger: 'blur'},
