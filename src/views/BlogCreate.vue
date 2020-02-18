@@ -3,18 +3,19 @@
         <Card class="content-wrapper">
             <Tabs value="MarkDown" :animated="false">
                 <TabPane label="MarkDown" name="MarkDown">
-                    <i-input v-model="formValidate.content" type="textarea" :autosize="{minRows: 10}"
-                             placeholder="请输入文章内容(markdown)">
-                    </i-input>
+                    <mavon-editor style="min-height: calc(100vh - 200px); max-width: 100%" :style="{zIndex}" v-model="editorContent"
+                                  placeholder="请开始你的表演..." @change="handleMavonChange" @save="handleMavonSave"
+                                  @fullScreen="handleMavonFullScreen">
+                    </mavon-editor>
                 </TabPane>
                 <TabPane label="富文本" name="RichText">
-                    <i-input v-model="formValidate.content" type="textarea" :autosize="{minRows: 10}"
+                    <i-input style="min-height: calc(100vh - 200px)" v-model="formValidate.content" type="textarea"
+                             :autosize="{minRows: 10}"
                              placeholder="请输入文章内容(富文本)">
                     </i-input>
                 </TabPane>
             </Tabs>
         </Card>
-        <Button long type="primary" style="margin-top: 12px">暂存</Button>
         <divider>请填写文章的其他信息</divider>
         <Card class="info-wrapper">
             <Row type=flex>
@@ -65,6 +66,8 @@
         data() {
             return {
                 editorType: 'markdown',
+                zIndex: 900,
+                editorContent: '',
                 formValidate: {
                     title: '',
                     category: '',
@@ -97,6 +100,16 @@
             ])
         },
         methods: {
+            handleMavonChange(value, render) {
+                this.formValidate.content = render;
+            },
+            // save 需重写
+            handleMavonSave(value, render) {
+                return render;
+            },
+            handleMavonFullScreen(status) {
+                status === true ? this.zIndex = 1500 : this.zIndex = 900;
+            },
             handleBeforeUpload(file) {
                 this.formValidate.cover = file;
                 return false;
@@ -130,7 +143,7 @@
             },
             handleReset() {
                 this.$refs.formValidate.resetFields();
-            }
+            },
         }
     }
 </script>

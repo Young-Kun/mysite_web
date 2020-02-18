@@ -61,9 +61,6 @@
     #inside-wrapper {
         overflow: initial;
         min-height: 100vh;
-    }
-
-    body::-webkit-scrollbar {
-        display: none;
+        max-width: 100%;
     }
 </style>

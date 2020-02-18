@@ -2,7 +2,7 @@
     <Row :gutter="12" v-if="article" type="flex">
         <BackTop :height="1"></BackTop>
         <i-col :span="18">
-            <Card style="height: 100%">
+            <Card style="height: 100%; padding: 0 24px">
                 <div>
                     <h1>{{ article.title }}</h1>
                     <pre>{{ article.add_time.split('T')[0] }}</pre>
@@ -17,7 +17,7 @@
                         <Button type="primary" style="margin-left: 8px;">分享</Button>
                     </div>
                     <hr style="margin: 8px 0">
-                    <div>{{ article.content }}</div>
+                    <div v-html="article.content"></div>
                 </div>
             </Card>
         </i-col>
