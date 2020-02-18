@@ -88,10 +88,7 @@
             handleLoginFormSubmit() {
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
-                        return this.$api.user.logIn({
-                            username: this.loginFormModel.account,
-                            password: this.loginFormModel.password
-                        }).then((response) => {
+                        return this.$api.user.logIn(this.loginFormModel.account, this.loginFormModel.password).then((response) => {
                             let expiresDays = this.loginFormModel.rememberMe ? 10 : null;
                             cookie.setCookie('username', this.loginFormModel.account, expiresDays);
                             cookie.setCookie('token', response.data.token, expiresDays);

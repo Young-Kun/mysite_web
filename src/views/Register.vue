@@ -179,6 +179,7 @@
                 });
             },
             handleCountdown() {
+                this.loading = true;
                 this.waitTime = this.defaultWaitTime;
                 let t1 = setInterval(() => {
                     this.waitTime -= 1;
@@ -191,7 +192,7 @@
                 }, 1000 * this.defaultWaitTime);
             },
             handleSendVerifyCode() {
-                this.loading = true;
+                this.handleCountdown();
                 this.$refs.registerForm.validateField('account', (errors) => {
                     if (errors) {
                         return this.$Message.error(errors);
@@ -200,7 +201,6 @@
                         let account_type = account.indexOf('@') > -1 ? 'email' : 'mobile';
                         this.$api.user.sendVerifyCode(account_type, account).then(() => {
                             this.$Message.success('验证码发送成功，5分钟内有效');
-                            this.handleCountdown();
                         }).catch((error) => {
                             console.log(error);
                             this.$Message.error(Object.values(error.response.data)[0][0])
