@@ -94,8 +94,8 @@
             ])
         },
         methods: {
-            getArticles(queryParams) {
-                this.$api.blog.blogList(queryParams).then((res) => {
+            getArticles(params) {
+                this.$api.blog.blogArticles(params).then((res) => {
                     this.articles = res.data.results;
                     this.articlesCount = res.data.count;
                 }).catch((error) => {
@@ -153,7 +153,6 @@
         },
         mounted() {
             this.getArticles(this.filterParams);
-            console.log(this.blogTags);
         }
     }
 </script>

@@ -17,7 +17,7 @@ const blog = {
     },
     // 文章列表
     blogArticles (params) {
-        return axios.get(`${base.sq}/articles`, params);
+        return axios.get(`${base.sq}/articles`, {params});
     },
     // 文章详情
     blogArticleDetail (id) {
