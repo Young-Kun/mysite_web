@@ -77,15 +77,11 @@
                 'showRegister',
             ]),
             handleFocus() {
-                this.$nextTick(() => {
-                    this.$refs.loginUserInput.focus();
-                });
+                this.$refs.loginUserInput.focus();
             },
             gotoRegister() {
                 this.closeLogin();
-                this.$nextTick(() => {
-                    this.showRegister();
-                });
+                this.showRegister();
             },
             handleLoginFormSubmit() {
                 this.$refs.loginForm.validate((valid) => {

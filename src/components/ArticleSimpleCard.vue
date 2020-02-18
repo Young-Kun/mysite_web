@@ -19,7 +19,7 @@
             gotoArticleDetail() {
                 this.$router.push({
                     name: 'blog-detail',
-                    params: {articleId: this.article.id, categoryId: this.article.category.id}
+                    params: {articleId: this.article.id}
                 });
                 this.$router.go(0);
             }
