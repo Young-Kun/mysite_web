@@ -23,15 +23,15 @@
                         <FormItem label="标题" prop="title">
                             <i-input v-model="formValidate.title" placeholder="请输入标题..."></i-input>
                         </FormItem>
-                        <FormItem label="分类">
-                            <Select v-model="formValidate.category" prop="category">
+                        <FormItem label="分类" prop="category">
+                            <Select v-model="formValidate.category" placeholder="请选择文章分类">
                                 <Option v-for="item in blogCategories" :key="item.id" :value="item.id">
                                     {{ item.name }}
                                 </Option>
                             </Select>
                         </FormItem>
-                        <FormItem label="标签">
-                            <Select v-model="formValidate.tags" multiple prop="tags">
+                        <FormItem label="标签" prop="tags">
+                            <Select v-model="formValidate.tags" multiple placeholder="请选择文章标签">
                                 <Option v-for="item in blogTags" :key="item.id" :value="item.id">
                                     {{ item.name }}
                                 </Option>
@@ -59,7 +59,6 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import {apiQuery} from "@/api";
 
     export default {
         name: "BlogCreate",
@@ -75,19 +74,19 @@
                     content: ''
                 },
                 ruleValidate: {
-                    // title: [
-                    //     {required: true, message: '标题不能为空', trigger: 'blur'},
-                    // ],
-                    // category: [
-                    //     {required: true, message: '分类是必填的', trigger: 'change'},
-                    // ],
-                    tags: [
-                        {required: true, message: '标签是必填的', trigger: 'blur'},
+                    title: [
+                        {required: true, message: '标题不能为空', trigger: 'blur'},
                     ],
-                    // brief: [
-                    //     {required: true, message: '简介不能为空', trigger: 'blur'},
-                    //     {type: 'string', max: 120, message: '简介应小于120个字', trigger: 'blur'},
-                    // ]
+                    category: [
+                        {required: true, message: '分类是必填的', trigger: 'change'},
+                    ],
+                    tags: [
+                        {required: true, message: '标签是必填的', trigger: 'change'},
+                    ],
+                    brief: [
+                        {required: true, message: '简介不能为空', trigger: 'blur'},
+                        {type: 'string', max: 120, message: '简介应小于120个字', trigger: 'blur'},
+                    ]
                 }
             }
         },
@@ -104,28 +103,26 @@
             },
             handleSubmitArticle() {
                 this.$refs.formValidate.validate((valid) => {
-                    // if (this.formValidate.content.length < 10) {
-                    //     this.$Message.error('请填写文章内容');
-                    //     return false;
-                    // }
+                    if (this.formValidate.content.length < 10) {
+                        this.$Message.error('请填写文章内容');
+                        return false;
+                    }
                     if (valid) {
-                        let data = {
-                            category: this.formValidate.category,
-                            tags: JSON.stringify(this.formValidate.tags),
-                            title: this.formValidate.title,
-                            brief: this.formValidate.brief,
-                            cover: this.formValidate.cover ? '' : this.formValidate.cover,
-                            content: this.formValidate.content};
-                        console.log(data);
-                        apiQuery('post', 'blog/create', null, data).then((response) => {
+                        this.$api.blog.blogCreate(
+                            this.formValidate.category,
+                            this.formValidate.tags,
+                            this.formValidate.title,
+                            this.formValidate.brief,
+                            this.formValidate.cover,
+                            this.formValidate.content
+                        ).then((response) => {
                             console.log(response);
+
                             this.$Message.success('发送成功！')
                         }).catch((error) => {
-                            console.log(JSON.stringify(this.formValidate.tags));
                             console.log(error);
                             this.$Message.error('发送失败！')
                         });
-
                     } else {
                         1
                     }

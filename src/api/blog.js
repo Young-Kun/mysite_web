@@ -4,7 +4,6 @@
 
 import base from './base'; // 导入接口域名列表
 import axios from '@/api/axios'; // 导入http中创建的axios实例
-import qs from 'qs'; // 根据需求是否导入qs模块
 
 const blog = {
     // 文章分类列表
@@ -24,8 +23,15 @@ const blog = {
         return axios.get(`${base.sq}/article/detail/${id}/`);
     },
     // 创建文章
-    blogCreate(params) {
-        return axios.post(`${base.sq}/accesstoken/`, qs.stringify(params));
+    blogCreate(category, tags, title, brief, cover, content) {
+        return axios.post(`${base.sq}/article/create/`, {
+            category,
+            tags,
+            title,
+            brief,
+            cover,
+            content
+        });
     }
 };
 

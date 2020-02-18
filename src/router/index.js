@@ -10,13 +10,13 @@ const routes = [
         component: () => import("@/views/BlogList")
     },
     {
-        path: '/blog/:articleId',
+        path: '/blog-detail/:articleId',
         name: 'blog-detail',
         props: true,
         component: () => import("@/views/BlogDetail")
     },
     {
-        path: '/blog/create',
+        path: '/blog-create',
         name: 'blog-create',
         component: () => import("@/views/BlogCreate")
     },
