@@ -175,8 +175,7 @@
                 });
             },
             gotoLogin() {
-                this.closeRegister();
-                this.$nextTick(() => {
+                this.closeRegister().then(() => {
                     this.showLogin();
                 });
             },
