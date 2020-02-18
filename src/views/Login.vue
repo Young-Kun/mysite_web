@@ -42,7 +42,6 @@
 </template>
 
 <script>
-    import {apiQuery} from "@/api";
     import cookie from "@/store/cookie";
     import {mapActions, mapState} from 'vuex';
 
@@ -77,16 +76,19 @@
                 'showRegister',
             ]),
             handleFocus() {
-                this.$refs.loginUserInput.focus();
+                this.$nextTick(() => {
+                    this.$refs.loginUserInput.focus();
+                });
             },
             gotoRegister() {
-                this.closeLogin();
-                this.showRegister();
+                this.closeLogin().then(() => {
+                    this.showRegister()
+                });
             },
             handleLoginFormSubmit() {
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
-                        apiQuery('post', 'jwt-token-auth', null, {
+                        return this.$api.user.logIn({
                             username: this.loginFormModel.account,
                             password: this.loginFormModel.password
                         }).then((response) => {

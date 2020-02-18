@@ -11,16 +11,16 @@ export default {
         console.log('Mutations: ', state.userInfo)
     },
     [types.SHOW_LOGIN](state) {
-        state.modalState.loginIsShow = true;
+        return Promise.resolve(state.modalState.loginIsShow = true);
     },
     [types.CLOSE_LOGIN](state) {
-        state.modalState.loginIsShow = false;
+        return Promise.resolve(state.modalState.loginIsShow = false);
     },
     [types.SHOW_REGISTER](state) {
-        state.modalState.registerIsShow = true;
+        return Promise.resolve(state.modalState.registerIsShow = true);
     },
     [types.CLOSE_REGISTER](state) {
-        state.modalState.registerIsShow = false;
+        return Promise.resolve(state.modalState.registerIsShow = false);
     },
     [types.ADD_BLOG_CATEGORIES](state, blog_category) {
         state.blogCategories.push(blog_category);

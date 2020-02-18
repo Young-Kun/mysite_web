@@ -74,15 +74,15 @@
         },
         methods: {
             getArticleDetail() {
-                return this.$api.blog.blogArticleDetail(this.articleId).then((res) => {
-                    this.article = res.data;
+                return this.$api.blog.blogArticleDetail(this.articleId).then((response) => {
+                    this.article = response.data;
                 }).catch((error) => {
                     console.log(error);
                 })
             },
             getArticles(params) {
-                return this.$api.blog.blogArticles(params).then((res) => {
-                    let data = res.data.results;
+                return this.$api.blog.blogArticles(params).then((response) => {
+                    let data = response.data.results;
                     let idx = null;
                     for (let i = 0; i < data.length; i++) {
                         if (data[i].id === this.article.id) {

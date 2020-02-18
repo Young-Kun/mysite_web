@@ -95,9 +95,9 @@
         },
         methods: {
             getArticles(params) {
-                return this.$api.blog.blogArticles(params).then((res) => {
-                    this.articles = res.data.results;
-                    this.articlesCount = res.data.count;
+                return this.$api.blog.blogArticles(params).then((response) => {
+                    this.articles = response.data.results;
+                    this.articlesCount = response.data.count;
                 }).catch((error) => {
                     console.log(error);
                 });
