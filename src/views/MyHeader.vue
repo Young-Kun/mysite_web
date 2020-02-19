@@ -29,10 +29,12 @@
                 <span>{{ userName }}</span>
             </div>
             <DropdownMenu slot="list" class="user-menu">
+                <DropdownItem name="user-center">个人中心</DropdownItem>
                 <DropdownItem name="change-password">修改密码</DropdownItem>
                 <DropdownItem name="logout">
                     <Icon type="ios-log-out"/>
-                    <span>退出</span></DropdownItem>
+                    <span>退出</span>
+                </DropdownItem>
             </DropdownMenu>
         </Dropdown>
     </Header>
@@ -51,29 +53,29 @@
         data() {
             return {
                 topMenuList: [
-                    {
-                        id: 1,
-                        name: 'guide',
-                        icon: 'ios-book',
-                        span: '写博客',
-                        to: {name: 'blog-create'}
-                    },
-                    {
-                        id: 2,
-                        name: 'quick_start',
-                        icon: 'ios-bicycle',
-                        span: '快速入门'
-                    },
-                    {
-                        id: 3,
-                        name: 'eco',
-                        icon: 'ios-cart',
-                        span: '商城',
-                        menu_items: [
-                            {id: 1, name: 'books', icon: '', span: '书籍'},
-                            {id: 2, name: 'videos', icon: '', span: '视频学习'},
-                        ]
-                    }
+                    // {
+                    //     id: 1,
+                    //     name: 'guide',
+                    //     icon: 'ios-book',
+                    //     span: '写博客',
+                    //     to: {name: 'blog-create'}
+                    // },
+                    // {
+                    //     id: 2,
+                    //     name: 'quick_start',
+                    //     icon: 'ios-bicycle',
+                    //     span: '快速入门'
+                    // },
+                    // {
+                    //     id: 3,
+                    //     name: 'eco',
+                    //     icon: 'ios-cart',
+                    //     span: '商城',
+                    //     menu_items: [
+                    //         {id: 1, name: 'books', icon: '', span: '书籍'},
+                    //         {id: 2, name: 'videos', icon: '', span: '视频学习'},
+                    //     ]
+                    // }
                 ]
             }
         },
@@ -101,6 +103,9 @@
                     cookie.delCookie('token');
                     this.setInfo();
                     this.$Message.success('退出成功');
+                }
+                if (name === 'user-center') {
+                    this.$router.push({name: 'user-center'}).catch(() => {});
                 }
             }
         }

@@ -24,14 +24,15 @@ const blog = {
     },
     // 创建文章
     blogCreate(category, tags, title, brief, cover, content) {
-        return axios.post(`${base.sq}/article/create/`, {
-            category,
-            tags,
-            title,
-            brief,
-            cover,
-            content
-        });
+        return axios.post(`${base.sq}/article/create/`,
+            {
+                category,
+                tags,
+                title,
+                brief,
+                cover,
+                content
+            });
     }
 };
 

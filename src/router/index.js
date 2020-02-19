@@ -5,6 +5,10 @@ Vue.use(VueRouter);
 
 const routes = [
     {
+        path: '/',
+        redirect: {name: 'index'}
+    },
+    {
         path: '/index',
         name: 'index',
         component: () => import("@/views/Index")
@@ -12,7 +16,7 @@ const routes = [
     {
         path: '/blogs',
         name: 'blogs',
-        component: () => import("@/views/BlogList")
+        component: () => import("@/views/BlogList"),
     },
     {
         path: '/blog-detail/:articleId',
@@ -25,6 +29,11 @@ const routes = [
         name: 'blog-create',
         component: () => import("@/views/BlogCreate")
     },
+    {
+        path: '/user-center',
+        name: 'user-center',
+        component: () => import("@/views/UserCenter")
+    }
 ];
 
 const router = new VueRouter({

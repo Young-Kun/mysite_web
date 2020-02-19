@@ -4,11 +4,11 @@
             <Tabs value="MarkDown" :animated="false">
                 <TabPane label="MarkDown" name="MarkDown">
                     <mavon-editor :style="{zIndex}" v-model="editorContent"
-                                  placeholder="请开始你的表演..." @change="handleMavonChange" @save="handleMavonSave"
+                                  @change="handleMavonChange" @save="handleMavonSave"
                                   @fullScreen="handleMavonFullScreen">
                     </mavon-editor>
                 </TabPane>
-                <TabPane label="富文本" name="RichText">
+                <TabPane label="富文本" name="RichText" disabled>
                     <i-input v-model="formValidate.content" type="textarea"
                              :autosize="{minRows: 10}"
                              placeholder="请输入文章内容(富文本)">
@@ -17,9 +17,10 @@
             </Tabs>
         </Card>
         <divider>请填写文章的其他信息</divider>
-        <Card class="info-wrapper">
-            <Row type=flex>
-                <i-col :span="12" style="margin: auto">
+
+        <Row>
+            <i-col :span="12" :offset="6">
+                <Card class="info-wrapper">
                     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
                         <FormItem label="标题" prop="title">
                             <i-input v-model="formValidate.title" placeholder="请输入标题..."></i-input>
@@ -43,7 +44,8 @@
                                      placeholder="请输入120字内的简介"></i-input>
                         </FormItem>
                         <FormItem label="封面" prop="cover">
-                            <Upload type="drag" action="/" :format="['jpg', 'jpeg', 'png']" :max-size="10240" :before-upload="handleBeforeUpload">
+                            <Upload type="drag" action="/" :format="['jpg', 'jpeg', 'png']" :max-size="10240"
+                                    :before-upload="handleBeforeUpload">
                                 <div style="padding: 20px 0">
                                     <div v-if="!formValidate.cover">
                                         <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
@@ -57,13 +59,14 @@
                             <div v-if="formValidate.cover">已上传：{{ formValidate.cover.name }}</div>
                         </FormItem>
                         <FormItem>
-                            <Button type="primary" @click="handleSubmitArticle">发布文章</Button>
+                            <Button type="warning" @click="handleSubmitArticle" style="float: right">发布文章</Button>
                             <Button type="primary" @click="handleReset">重置表单</Button>
                         </FormItem>
                     </Form>
-                </i-col>
-            </Row>
-        </Card>
+                </Card>
+            </i-col>
+        </Row>
+
     </Row>
 </template>
 
