@@ -11,7 +11,7 @@ const routes = [
     {
         path: '/index',
         name: 'index',
-        component: () => import("@/views/Index")
+        redirect: 'blogs'
     },
     {
         path: '/blogs',

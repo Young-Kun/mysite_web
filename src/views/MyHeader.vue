@@ -53,29 +53,30 @@
         data() {
             return {
                 topMenuList: [
-                    // {
-                    //     id: 1,
-                    //     name: 'guide',
-                    //     icon: 'ios-book',
-                    //     span: '写博客',
-                    //     to: {name: 'blog-create'}
-                    // },
-                    // {
-                    //     id: 2,
-                    //     name: 'quick_start',
-                    //     icon: 'ios-bicycle',
-                    //     span: '快速入门'
-                    // },
-                    // {
-                    //     id: 3,
-                    //     name: 'eco',
-                    //     icon: 'ios-cart',
-                    //     span: '商城',
-                    //     menu_items: [
-                    //         {id: 1, name: 'books', icon: '', span: '书籍'},
-                    //         {id: 2, name: 'videos', icon: '', span: '视频学习'},
-                    //     ]
-                    // }
+                    {
+                        id: 1,
+                        name: 'guide',
+                        icon: 'ios-book',
+                        span: '写博客',
+                        to: {name: 'blog-create'}
+                    },
+                    {
+                        id: 2,
+                        name: 'quick_start',
+                        icon: 'ios-bicycle',
+                        span: '看博客',
+                        to: {name: 'blogs'}
+                    },
+                    {
+                        id: 3,
+                        name: 'eco',
+                        icon: 'ios-cart',
+                        span: '凑数的',
+                        menu_items: [
+                            {id: 1, name: 'books', icon: '', span: '书籍'},
+                            {id: 2, name: 'videos', icon: '', span: '视频学习'},
+                        ]
+                    }
                 ]
             }
         },
