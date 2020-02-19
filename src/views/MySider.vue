@@ -23,16 +23,6 @@
             return {
                 isCollapsed: false,
                 siderMenuList: [
-                    // {
-                    //     id: 1,
-                    //     name: 'contents',
-                    //     icon: 'ios-paper',
-                    //     span: '查看文章',
-                    //     menu_items: [
-                    //         {id: 1, name: 'articles', icon: '', span: '文章列表'},
-                    //         {id: 2, name: 'comments', icon: '', span: '评论管理'},
-                    //     ]
-                    // },
                     {
                         id: 1,
                         name: 'write',
@@ -49,16 +39,26 @@
                         to: {name: 'blogs'},
                         menu_items: ''
                     },
-                    // {
-                    //     id: 3,
-                    //     name: 'stats',
-                    //     icon: 'ios-stats',
-                    //     span: '统计分析',
-                    //     menu_items: [
-                    //         {id: 1, name: 'favors', icon: '', span: '偏好分析', to: {name: 'blogs'}},
-                    //         {id: 2, name: 'periods', icon: '', span: '活跃时段'},
-                    //     ]
-                    // },
+                    {
+                        id: 3,
+                        name: 'contents',
+                        icon: 'ios-alarm',
+                        span: '凑数用的',
+                        menu_items: [
+                            {id: 1, name: 'articles', icon: '', span: '文章列表'},
+                            {id: 2, name: 'comments', icon: '', span: '评论管理'},
+                        ]
+                    },
+                    {
+                        id: 4,
+                        name: 'stats',
+                        icon: 'ios-stats',
+                        span: '为了排版好看',
+                        menu_items: [
+                            {id: 1, name: 'favors', icon: '', span: '偏好分析', to: {name: 'blogs'}},
+                            {id: 2, name: 'periods', icon: '', span: '活跃时段'},
+                        ]
+                    },
                 ]
             };
         },

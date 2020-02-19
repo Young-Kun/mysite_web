@@ -47,11 +47,11 @@
                             <Upload type="drag" action="/" :format="['jpg', 'jpeg', 'png']" :max-size="10240"
                                     :before-upload="handleBeforeUpload">
                                 <div style="padding: 20px 0">
-                                    <div v-if="!formValidate.cover">
+                                    <div>
                                         <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
                                         <p>点击选择或拖动图片来上传</p>
                                     </div>
-                                    <div v-else>
+                                    <div v-if="formValidate.cover">
                                         <img :src="formValidate.cover.url" alt=""/>
                                     </div>
                                 </div>
@@ -133,14 +133,16 @@
                         return false;
                     }
                     if (valid) {
-                        this.$api.blog.blogCreate(
-                            this.formValidate.category,
-                            this.formValidate.tags,
-                            this.formValidate.title,
-                            this.formValidate.brief,
-                            this.formValidate.cover,
-                            this.formValidate.content
-                        ).then((response) => {
+                        let formData = new FormData();
+                        formData.append('category', this.formValidate.category);
+                        this.formValidate.tags.forEach((value) => {
+                            formData.append('tags', value)
+                        });
+                        formData.append('title', this.formValidate.title);
+                        formData.append('brief', this.formValidate.brief);
+                        formData.append('cover', this.formValidate.cover);
+                        formData.append('content', this.formValidate.content);
+                        this.$api.blog.blogCreate(formData).then((response) => {
                             this.$router.push({name: 'blog-detail', params: {articleId: response.data.id}});
                             console.log(response);
                             this.$Message.success('发布成功！')

@@ -23,15 +23,13 @@ const blog = {
         return axios.get(`${base.sq}/article/detail/${id}/`);
     },
     // 创建文章
-    blogCreate(category, tags, title, brief, cover, content) {
+    blogCreate(data) {
         return axios.post(`${base.sq}/article/create/`,
+            data,
             {
-                category,
-                tags,
-                title,
-                brief,
-                cover,
-                content
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             });
     }
 };
