@@ -1,5 +1,5 @@
 <template>
-    <Row :gutter="12" v-if="article" type="flex">
+    <Row :gutter="12" v-if="article">
         <BackTop :height="1"></BackTop>
         <i-col :span="18">
             <Card style="height: 100%; padding: 0 24px">
@@ -17,7 +17,7 @@
                         <Button type="primary" style="margin-left: 8px;">分享</Button>
                     </div>
                     <hr style="margin: 8px 0">
-                    <div v-html="article.content"></div>
+                    <div v-html="article.content" class="markdown-body"></div>
                 </div>
             </Card>
         </i-col>

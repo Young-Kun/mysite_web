@@ -43,9 +43,18 @@
                                      placeholder="请输入120字内的简介"></i-input>
                         </FormItem>
                         <FormItem label="封面" prop="cover">
-                            <Upload action="/" :before-upload="handleBeforeUpload">
-                                <Button icon="ios-cloud-upload-outline">为文章选择封面图像</Button>
+                            <Upload type="drag" action="/" :format="['jpg', 'jpeg', 'png']" :max-size="10240" :before-upload="handleBeforeUpload">
+                                <div style="padding: 20px 0">
+                                    <div v-if="!formValidate.cover">
+                                        <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+                                        <p>点击选择或拖动图片来上传</p>
+                                    </div>
+                                    <div v-else>
+                                        <img :src="formValidate.cover.url" alt=""/>
+                                    </div>
+                                </div>
                             </Upload>
+                            <div v-if="formValidate.cover">已上传：{{ formValidate.cover.name }}</div>
                         </FormItem>
                         <FormItem>
                             <Button type="primary" @click="handleSubmitArticle">发布文章</Button>
@@ -89,7 +98,7 @@
                     brief: [
                         {required: true, message: '简介不能为空', trigger: 'blur'},
                         {type: 'string', max: 120, message: '简介应小于120个字', trigger: 'blur'},
-                    ]
+                    ],
                 }
             }
         },
@@ -131,7 +140,7 @@
                         ).then((response) => {
                             this.$router.push({name: 'blog-detail', params: {articleId: response.data.id}});
                             console.log(response);
-                            this.$Message.success('发布成功！(文章如有敏感信息，已被屏蔽)')
+                            this.$Message.success('发布成功！')
                         }).catch((error) => {
                             console.log(error);
                             this.$Message.error('请先登录！')
