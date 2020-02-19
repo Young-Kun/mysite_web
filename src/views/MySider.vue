@@ -27,18 +27,18 @@
                         id: 1,
                         name: 'write',
                         icon: 'ios-book',
-                        span: '写文章',
-                        to: {name: 'blog-create'},
+                        span: '凑数1',
+                        // to: {name: 'blog-create'},
                         menu_items: ''
                     },
-                    {
-                        id: 2,
-                        name: 'articles',
-                        icon: 'ios-paper',
-                        span: '查看文章',
-                        to: {name: 'blogs'},
-                        menu_items: ''
-                    },
+                    // {
+                    //     id: 2,
+                    //     name: 'articles',
+                    //     icon: 'ios-paper',
+                    //     span: '查看文章',
+                    //     to: {name: 'blogs'},
+                    //     menu_items: ''
+                    // },
                     {
                         id: 3,
                         name: 'contents',
