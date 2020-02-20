@@ -43,7 +43,7 @@
                             <i-input v-model="formValidate.brief" type="textarea" :autosize="{minRows:2}"
                                      placeholder="请输入120字内的简介"></i-input>
                         </FormItem>
-                        <FormItem label="封面" prop="cover">
+                        <FormItem label="封面" prop="cover" required>
                             <Upload type="drag" action="/" :format="['jpg', 'jpeg', 'png']" :max-size="10240"
                                     :before-upload="handleBeforeUpload">
                                 <div style="padding: 20px 0">

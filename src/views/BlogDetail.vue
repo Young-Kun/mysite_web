@@ -17,7 +17,9 @@
                         <Button type="primary" style="margin-left: 8px;">分享</Button>
                     </div>
                     <hr style="margin: 8px 0">
-                    <div v-html="article.content" class="markdown-body"></div>
+                    <div class="markdown-body">
+                        <span v-html="article.content"></span>
+                    </div>
                 </div>
             </Card>
         </i-col>
