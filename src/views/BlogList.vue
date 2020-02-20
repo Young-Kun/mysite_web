@@ -1,7 +1,7 @@
 <template>
     <Row :gutter="12">
         <BackTop :height="1"></BackTop>
-        <i-col span="18">
+        <i-col :xs="24" :lg="18">
             <Card>
                 <Tabs @on-click="handleSelectCategory" v-model="activeCategory">
                     <TabPane label="所有分类" name="all"></TabPane>
@@ -29,7 +29,7 @@
                 </Card>
             </Card>
         </i-col>
-        <i-col span="6">
+        <i-col :xs="0" :lg="6">
             <div>
                 <Card style="margin-bottom: 8px;">
                     <Button @click="showAllArticles">显示所有文章</Button>

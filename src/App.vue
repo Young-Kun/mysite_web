@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <Layout class="ivu-layout-has-sider" id="wrapper">
+        <Layout class="ivu-layout-has-sider" id="wrapper" :class="siderStatus">
             <my-sider/>
             <Layout id="inside-wrapper">
                 <my-header/>
@@ -20,7 +20,7 @@
     import MyFooter from "@/views/MyFooter";
     import Login from "@/views/Login";
     import Register from "@/views/Register";
-    import {mapActions} from 'vuex';
+    import {mapActions, mapState} from 'vuex';
 
     export default {
         name: 'app',
@@ -31,6 +31,11 @@
             MyHeader,
             MyContent,
             MyFooter
+        },
+        computed: {
+            ...mapState([
+                'siderStatus'
+            ])
         },
         methods: {
             ...mapActions([
@@ -63,6 +68,12 @@
         min-width: 100%;
         max-width: 100%;
         padding-top: 64px;
+    }
+    .sider-expanded #inside-wrapper {
         padding-left: 200px;
+    }
+
+    .sider-collapsed #inside-wrapper {
+        padding-left: 0;
     }
 </style>

@@ -27,5 +27,11 @@ export default {
     },
     [types.ADD_BLOG_TAGS](state, blog_tag) {
         state.blogTags.push(blog_tag);
+    },
+    [types.COLLAPSE_SIDER](state) {
+        state.siderStatus = 'sider-collapsed';
+    },
+    [types.EXPAND_SIDER](state) {
+        state.siderStatus = 'sider-expanded';
     }
 }

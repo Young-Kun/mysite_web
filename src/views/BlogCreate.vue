@@ -18,8 +18,8 @@
         </Card>
         <divider>请填写文章的其他信息</divider>
 
-        <Row>
-            <i-col :span="12" :offset="6">
+        <Row type="flex" style="justify-content: center">
+            <i-col :xs="24" :lg="12">
                 <Card class="info-wrapper">
                     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
                         <FormItem label="标题" prop="title">

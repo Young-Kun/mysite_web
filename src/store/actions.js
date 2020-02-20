@@ -11,6 +11,8 @@ const showRegister = makeAction(types.SHOW_REGISTER);
 const closeRegister = makeAction(types.CLOSE_REGISTER);
 const addBlogCategory = makeAction(types.ADD_BLOG_CATEGORIES);
 const addBlogTag = makeAction(types.ADD_BLOG_TAGS);
+const collapseSider = makeAction(types.COLLAPSE_SIDER);
+const expandSider = makeAction(types.EXPAND_SIDER);
 
 
 export default {
@@ -21,4 +23,6 @@ export default {
     closeRegister,
     addBlogCategory,
     addBlogTag,
+    collapseSider,
+    expandSider
 }
