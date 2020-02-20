@@ -65,6 +65,10 @@
         flex: none;
     }
 
+    .sider-collapsed .cover-img {
+        width: 0;
+    }
+
     .cover-img:hover {
         box-shadow: 0 0 3px 3px rgba(53, 64, 82, 0.3);
     }
