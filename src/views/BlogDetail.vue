@@ -1,7 +1,7 @@
 <template>
     <Row :gutter="12" v-if="article">
         <BackTop :height="1"></BackTop>
-        <i-col :span="18">
+        <i-col :xs="24" :lg="18">
             <Card style="height: 100%; padding: 0 24px">
                 <div>
                     <h1>{{ article.title }}</h1>
@@ -23,7 +23,7 @@
                 </div>
             </Card>
         </i-col>
-        <i-col :span="6">
+        <i-col :xs="0" :lg="6">
             <Card dis-hover>
                 <div style="text-align:center">
                     <img :src="article.user.avatar" alt="" width="100%"/>

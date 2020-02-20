@@ -1,6 +1,9 @@
 <template>
-    <Sider id="sider" collapsed-width="0" collapsible breakpoint="lg" v-model="isCollapsed" hide-trigger
-           @on-collapse="handleCollapse">
+    <Sider id="sider" collapsed-width="0"
+           collapsible breakpoint="lg"
+           v-model="siderIsCollapsed"
+           hide-trigger
+           @on-collapse="handleSiderCollapse">
         <div id="brand" @click="backToIndex">
             LOGO
         </div>
@@ -14,21 +17,16 @@
 
 <script>
     import DataBasedMenuItems from "@/components/DataBasedMenuItems";
-    import {mapState, mapActions} from 'vuex';
+    import {mapActions} from 'vuex';
 
     export default {
         name: "MySider",
         components: {
             DataBasedMenuItems
         },
-        computed: {
-            ...mapState([
-                'siderStatus'
-            ])
-        },
         data() {
             return {
-                isCollapsed: false,
+                siderIsCollapsed: false,
                 siderMenuList: [
                     {
                         id: 1,
@@ -78,7 +76,7 @@
                 'collapseSider',
                 'expandSider'
             ]),
-            handleCollapse(c) {
+            handleSiderCollapse(c) {
                 return c ? this.collapseSider() : this.expandSider();
             }
         }

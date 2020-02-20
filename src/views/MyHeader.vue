@@ -1,7 +1,7 @@
 <template>
     <Header id="header">
         <!--折叠触发器-->
-        <div id="sider-toggle">
+        <div id="sider-toggle" @click="handleCollapseSider">
             <Icon type="md-menu" size="20"/>
         </div>
         <!--菜单-->
@@ -52,7 +52,7 @@
 <script>
     import DataBasedMenuItems from "@/components/DataBasedMenuItems";
     import cookie from "@/store/cookie";
-    import {mapGetters, mapActions} from 'vuex';
+    import {mapGetters, mapActions, mapState} from 'vuex';
 
     export default {
         name: "MyHeader",
@@ -93,12 +93,17 @@
             ...mapGetters([
                 'userName',
             ]),
+            ...mapState([
+                'siderCollapsed',
+            ])
         },
         methods: {
             ...mapActions([
                 'setInfo',
                 'showLogin',
                 'showRegister',
+                'collapseSider',
+                'expandSider'
             ]),
             handleShowLoginModal() {
                 this.showLogin();
@@ -117,6 +122,15 @@
                 if (name === 'user-center') {
                     this.$router.push({name: 'user-center'}).catch(() => {
                     });
+                }
+            },
+            handleCollapseSider() {
+                if (this.siderCollapsed){
+                    this.expandSider();
+                    this.$emit('siderIsExpanded');
+                }else{
+                    this.collapseSider();
+                    this.$emit('siderIsCollapsed');
                 }
             }
         }

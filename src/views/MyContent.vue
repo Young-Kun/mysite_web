@@ -20,6 +20,6 @@
     }
 
     .sider-collapsed #content {
-        padding: 36px 0;
+        padding: 0;
     }
 </style>

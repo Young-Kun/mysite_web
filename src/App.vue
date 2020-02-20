@@ -1,9 +1,10 @@
 <template>
     <div id="app">
-        <Layout class="ivu-layout-has-sider" id="wrapper" :class="siderStatus">
-            <my-sider/>
+        <Layout class="ivu-layout-has-sider" id="wrapper" :class="siderCollapsed?'sider-collapsed':'sider-expanded'">
+            <my-sider ref="mysider"/>
             <Layout id="inside-wrapper">
-                <my-header/>
+                <my-header @siderIsExpanded="handleSiderStatus('expanded')"
+                           @siderIsCollapsed="handleSiderStatus('collapsed')"/>
                 <my-content/>
                 <my-footer/>
             </Layout>
@@ -34,14 +35,21 @@
         },
         computed: {
             ...mapState([
-                'siderStatus'
+                'siderCollapsed'
             ])
         },
         methods: {
             ...mapActions([
                 'addBlogCategory',
                 'addBlogTag',
-            ])
+            ]),
+            handleSiderStatus(status) {
+                if(status==='expanded'){
+                    this.$refs.mysider.$data.siderIsCollapsed = false;
+                }else{
+                    this.$refs.mysider.$data.siderIsCollapsed = true;
+                }
+            }
         },
         mounted() {
             this.$api.blog.blogCategories().then((res) => {
@@ -58,7 +66,7 @@
             }).catch((error) => {
                 console.log(error);
             });
-        }
+        },
     }
 </script>
 
@@ -69,6 +77,7 @@
         max-width: 100%;
         padding-top: 64px;
     }
+
     .sider-expanded #inside-wrapper {
         padding-left: 200px;
     }

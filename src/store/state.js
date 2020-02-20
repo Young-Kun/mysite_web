@@ -11,7 +11,7 @@ const modalState = {
     registerIsShow: false,
 };
 
-const siderStatus = 'sider-expanded';
+const siderCollapsed = false;
 
 const blogCategories = [];
 
@@ -22,5 +22,5 @@ export default {
     modalState,
     blogCategories,
     blogTags,
-    siderStatus,
+    siderCollapsed,
 };
